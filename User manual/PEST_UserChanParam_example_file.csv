@@ -1,0 +1,10 @@
+Total Flowrate,All,1,1.0E-10,60,Log
+Mass,1,1,1.0E-10,5,Log
+Mass,2,1,1.0E-10,5,Log
+Mass,3,1,1.0E-10,5,Log
+T0,1,1,1,40,Log
+T0,2,1,1,40,Log
+T0,3,1,1,40,Log
+Pe,1,1,1,1.0E+5,Log
+Pe,2,1,1,1.0E+5,Log
+Pe,3,1,1,1.0E+5,Log

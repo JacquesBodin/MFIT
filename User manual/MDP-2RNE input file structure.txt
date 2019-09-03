@@ -1,0 +1,21 @@
+Tmin (double / min simulation time)
+Tmax (double / max simulation time)
+NoTimeSteps (int / number of simulated time-concentration pair values)
+QT (double / total flow rate)
+NoFlowPaths (int / number of flow paths)
+
+m (double / flowpath#1 mass)
+x (double / flowpath#1 length)
+h (double / flowpath#1 eta_T0)
+s (double / flowpath#1 sigma_Pe)
+p (double / flowpath#1 psi)
+o (double / flowpath#1 omega)
+
+m (double / flowpath#2 mass)
+x (double / flowpath#2 length)
+h (double / flowpath#2 eta_T0)
+s (double / flowpath#2 sigma_Pe)
+p (double / flowpath#2 psi)
+o (double / flowpath#2 omega)
+
+etc.

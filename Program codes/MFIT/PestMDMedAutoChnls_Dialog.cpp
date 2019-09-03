@@ -1,0 +1,692 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "PestMDMedAutoChnls_Dialog.h"
+#include "PestGeneralForm.h"
+#include "MainForm.h"
+#include "MDMed_Dialog.h"
+#include "TCobs_dialog.h"
+#include "Error_MessageBox.h"
+#include <fstream>
+#include <string>
+#include <sstream>
+#include "spline.h"
+
+using namespace std;
+
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TPestADEniAutoChnls *PestADEniAutoChnls;
+//---------------------------------------------------------------------------
+__fastcall TPestADEniAutoChnls::TPestADEniAutoChnls(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::resetPestParamGrid()
+{
+  ParamGrid->Cells[0][0]="Parameter";
+  ParamGrid->Cells[1][0]="Estimate (No=0/Yes=1)";
+  ParamGrid->Cells[2][0]="Minimum";
+  ParamGrid->Cells[3][0]="Maximum";
+  ParamGrid->Cells[4][0]="Transform";
+  ParamGrid->Cells[0][1]="Source Concentration";
+  ParamGrid->Cells[0][2]="Flowrate contrib. ratio";
+  ParamGrid->Cells[0][3]="T0";
+  ParamGrid->Cells[0][4]="Pe";
+  ParamGrid->Cells[0][5]="Gamma Coeff.";
+  for (int row=1; row<6; row++) // 5 parameters in the transport model: c0,f,h,s,g
+  {
+	ParamGrid->Cells[1][row]="1";
+	ParamGrid->Cells[2][row]="1.0E-10";
+	if ((row == 2)||(row == 5)) ParamGrid->Cells[3][row]="1"; // special cases: fmax, gmax
+	else ParamGrid->Cells[3][row]="1.0E+10";
+	ParamGrid->Cells[4][row]="Log";
+  }
+  ParamGrid->Col=1;
+  ParamGrid->Row=1;
+  UpDown->Position = 10;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::FormCreate(TObject *Sender)
+{
+  resetPestParamGrid();
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::ParamGridClick(TObject *Sender)
+{
+  if(ParamGrid->Col == 1) // User click in the column "Estimate"
+  {
+	TRect Recto = ParamGrid->CellRect(ParamGrid->Col, ParamGrid->Row);
+	UseParam_CBox->Top = ParamGrid->Top;
+	UseParam_CBox->Left = ParamGrid->Left;
+	UseParam_CBox->Top = UseParam_CBox->Top + Recto.Top + ParamGrid->GridLineWidth;
+	UseParam_CBox->Left = UseParam_CBox->Left + Recto.Left + ParamGrid->GridLineWidth + 1;
+	UseParam_CBox->Height = (Recto.Bottom - Recto.Top) + 1;
+	UseParam_CBox->Width = Recto.Right - Recto.Left;
+	UseParam_CBox->Text = ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row];
+	UseParam_CBox->Visible = true;
+  }
+  else
+  {
+	UseParam_CBox->Visible = false;
+  }
+
+  if(ParamGrid->Col == 4) // User click in the column "Transform"
+  {
+	TRect Recto = ParamGrid->CellRect(ParamGrid->Col, ParamGrid->Row);
+	ParTrans_CBox->Top = ParamGrid->Top;
+	ParTrans_CBox->Left = ParamGrid->Left;
+	ParTrans_CBox->Top = ParTrans_CBox->Top + Recto.Top + ParamGrid->GridLineWidth;
+	ParTrans_CBox->Left = ParTrans_CBox->Left + Recto.Left + ParamGrid->GridLineWidth + 1;
+	ParTrans_CBox->Height = (Recto.Bottom - Recto.Top) + 1;
+	ParTrans_CBox->Width = Recto.Right - Recto.Left;
+	ParTrans_CBox->Text = ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row];
+	ParTrans_CBox->Visible = true;
+  }
+  else
+  {
+	ParTrans_CBox->Visible = false;
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::UseParam_CBoxChange(TObject *Sender)
+{
+  ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row] = UseParam_CBox->Text;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::ParTrans_CBoxChange(TObject *Sender)
+{
+  ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row] = ParTrans_CBox->Text;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::clearPestParams()
+{
+  m_PestParams.clear();
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::addParam(std::vector<double> vTEMMT)
+{
+  m_PestParams.push_back(vTEMMT);
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::OK_ButtonClick(TObject *Sender)
+{
+  Main_Form->PestUserChnls->Checked = false;
+  Main_Form->PestAutoChnls->Checked = true;
+  Main_Form->PestCreateDatasetsMenu->Enabled = true;
+  clearPestParams();
+
+  vector<double> vTEMMT (5,0); // Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0];
+
+  for (int row=1; row<6; row++) // 5 parameters in the transport model: c0,f,h,s,g
+  {
+	vTEMMT[0] = row; // parameter type numeric code (c0 = 1, f = 2, etc.)
+	vTEMMT[1] = ParamGrid->Cells[1][row].ToInt(); // Estimate (No=0/Yes=1)
+	vTEMMT[2] = ParamGrid->Cells[2][row].ToDouble(); // Minimum
+	vTEMMT[3] = ParamGrid->Cells[3][row].ToDouble(); // Maximum
+	if (ParamGrid->Cells[4][row] == "None") vTEMMT[4] = 0;
+	else if(ParamGrid->Cells[4][row] == "Log") vTEMMT[4] = 1;
+	addParam(vTEMMT);
+  }
+  Hide();
+  Main_Form->notifyChanges();
+}
+//---------------------------------------------------------------------------
+vector< vector<double> > __fastcall TPestADEniAutoChnls::getPestParams() const
+{
+  return m_PestParams;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::BackToSavedParams()
+{
+  vector< vector<double> > const pestParamVector = getPestParams();
+  if (pestParamVector.size()>0)
+  {
+	for (int row=1; row<6; row++) // 5 parameters in the transport model: c0,f,h,s,g
+	{
+	  ParamGrid->Cells[1][row] = pestParamVector[row-1][1];
+	  ParamGrid->Cells[2][row] = FloatToStrF(pestParamVector[row-1][2], ffExponent, 3, 2);
+	  ParamGrid->Cells[3][row] = FloatToStrF(pestParamVector[row-1][3], ffExponent, 3, 2);
+	  if (pestParamVector[row-1][4] == 0) ParamGrid->Cells[4][row] = "None";
+	  else if (pestParamVector[row-1][4] == 1) ParamGrid->Cells[4][row] = "Log";
+	}
+  }
+  else // pestParamVector is empty
+  {
+    resetPestParamGrid();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::Cancel_ButtonClick(TObject *Sender)
+{
+  BackToSavedParams();
+  Hide();
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::FormClose(TObject *Sender, TCloseAction &Action)
+{
+  BackToSavedParams();
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::newPestTplFile(int n)
+{
+  if (n < 1)
+  {
+	ErrorMessage->ErrorMessageLabel->Caption = "Error: number of channels < 1";
+	ErrorMessage->Show();
+  }
+  else
+  {
+	vector< vector<double> > const pestAutoChnlParams(getPestParams()); // a series (vector) of TEMMT values (Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform)
+	ofstream tplFile("MFIT.tpl", ios::out | ios::trunc);
+	tplFile << "ptf #" << endl;
+	tplFile << MDMed->getTsimMin() << endl;
+	tplFile << MDMed->getTsimMax() << endl;
+	tplFile << MDMed->getNoTimeSteps() << endl;
+	//---- checking whether an optimization of c0 is required -----
+	bool optFlag_c0(false);
+	for (unsigned int k = 0; k <pestAutoChnlParams.size(); k++)
+	{
+	  if ((pestAutoChnlParams[k][0] == 1) && (pestAutoChnlParams[k][1] == 1))
+	  {
+		optFlag_c0 = true;
+		tplFile << "#c0" << "                #" << endl;
+		break;
+	  }
+	}
+	if (!optFlag_c0) // User-fixed parameter (no optimization of c0)
+	{
+	  tplFile << MDMed->getC0() << endl;
+	}
+	//-------------------------------------------------------------------
+	tplFile << n << endl;
+	tplFile << endl;
+	for (int idChnl = 1; idChnl <= n; idChnl++) // for each channel
+	{
+	  for (int idParam = 2; idParam <= 5; idParam++) // for each parameter except c0
+	  {
+		bool optFlag = false; // indicates if a parameter optimization is required or not
+		for (unsigned int k = 0; k < pestAutoChnlParams.size(); k++)
+		{
+		  if ((pestAutoChnlParams[k][0] == idParam) // checking whether the parameter [idParam] is listed in the Pest parameter vector
+			&&(pestAutoChnlParams[k][1] == 1)) // the parameter optimization is required!
+		  {
+			optFlag = true;
+			if (idParam == 2) {tplFile << "#f" << idChnl << "                #" << endl;}
+			else if (idParam == 3) {tplFile << "#h" << idChnl << "                #" << endl;}
+			else if (idParam == 4) {tplFile << "#s" << idChnl << "                #" << endl;}
+			else if (idParam == 5) {tplFile << "#g" << idChnl << "                #" << endl;}
+		  }
+		}
+		if (!optFlag) // User-fixed parameter (no optimization). The retained parameter value is that of the first channel.
+		{
+		  if (idParam == 2) // Channel flow rate contribution ratio: special case
+		  {
+			tplFile << double(1)/double(n) << endl; // Uniform distribution between the channels
+		  }
+		  else {tplFile << MDMed->getChnlParam(1, idParam-1) << endl;} // Non-optimized parameter values = first channel parameter values
+		}
+	  }
+	  if (idChnl < n) {tplFile << endl;}
+	}
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TPestADEniAutoChnls::newPestControlFile(int n, int idRemovedChnl)
+{
+  int const noTimeSteps = MDMed->getNoTimeSteps();
+  if (n < 1)
+  {
+	ErrorMessage->ErrorMessageLabel->Caption = "Error: unvalid n value";
+	ErrorMessage->Show();
+  }
+  else
+  {
+	vector< vector<double> > const pestAutoChnlParams(getPestParams()); // same vector as PestMDMedAutoChnls->ParamGrid
+	int optFlag_c0(pestAutoChnlParams[0][1]); // indicates if the parameter must be optimized (=1) or not (=0)
+	int optFlag_f(pestAutoChnlParams[1][1]);
+	int optFlag_h(pestAutoChnlParams[2][1]);
+	int optFlag_s(pestAutoChnlParams[3][1]);
+	int optFlag_g(pestAutoChnlParams[4][1]);
+	bool logTr_c0(pestAutoChnlParams[0][4]); // indicates if the optimization must be based on the log of the parameter
+	bool logTr_f(pestAutoChnlParams[1][4]);
+	bool logTr_h(pestAutoChnlParams[2][4]);
+	bool logTr_s(pestAutoChnlParams[3][4]);
+	bool logTr_g(pestAutoChnlParams[4][4]);
+	ofstream pstFile("MFIT.pst", ios::out | ios::trunc);
+	pstFile << "pcf" << endl;
+	//============ Control Data Section ============
+	pstFile << "* control data" << endl;
+	string const RSTFLE = "norestart";
+	string PESTMODE;
+	if ((PestGeneral->checkTikRegOption() == false) // Tikhonov regularisation mode not selected...
+		|| ((PestGeneral->checkTikRegOption() == true) && (PestGeneral->getTikRegType() == 1) // or Tikhonov regularisation with "preferred homogeneity" option...
+			&& (n == 1)) // but only one channel...
+		|| ((PestGeneral->checkTikRegOption() == true) && (PestGeneral->getTikRegType() == 1) // or Tikhonov regularisation with "preferred homogeneity" option...
+			&& (optFlag_f == 0) && (optFlag_h == 0) && (optFlag_s == 0) && (optFlag_g == 0))) // multiple channels, but only c0 to optimize
+	{
+	  PESTMODE = "estimation";
+	}
+	else PESTMODE = "regularisation";
+	int const NPAR = optFlag_c0 + n*(optFlag_f + optFlag_h + optFlag_s + optFlag_g);
+	int const NPARGP(1);
+	int NPRIOR, NOBSGP;
+	if (PESTMODE == "estimation")
+	{
+	  NPRIOR = 0;
+	  NOBSGP = 1;
+	}
+	else // PESTMODE == "regularisation"
+	{
+	  if (PestGeneral->getTikRegType() == 1) // preferred homogeneity
+	  {
+		NPRIOR = (optFlag_f + optFlag_h + optFlag_s + optFlag_g)*(n*(n-1))/2; // number of prior informations for the "preferred homogeneity" regularization: m1=m2, m1=m3, ... etc.
+		NOBSGP = 1 + optFlag_f + optFlag_h + optFlag_s + optFlag_g;
+	  }
+	  else // preferred value
+	  {
+		NPRIOR = NPAR;
+		NOBSGP = 1 + optFlag_c0 + optFlag_f + optFlag_h + optFlag_s + optFlag_g;
+	  }
+	}
+	int const NTPLFLE(1);
+	int const NINSFLE(1);
+	string const PRECIS = "single";
+	string const DPOINT = "point";
+	int const NUMCOM(1);
+	int JACFILE;
+	if (PestGeneral->checkEXTDRVOption()) {JACFILE = 1;} else {JACFILE = 0;} // 1 if use of external (analytical) derivatives, 0 if use of finite-difference derivatives
+	int const MESSFILE(0);
+	pstFile << RSTFLE << " " << PESTMODE << endl;
+	pstFile << NPAR << "  " << noTimeSteps << "  " << NPARGP << "  " << NPRIOR << "  " << NOBSGP << endl;
+	pstFile << NTPLFLE << "  " << NINSFLE << "  " << PRECIS << "  " << DPOINT << "  " << NUMCOM << "  " << JACFILE << "  " << MESSFILE << endl;
+	pstFile << "10.0" << "  "; // RLAMBDA1
+	pstFile << PestGeneral->getRLAMFAC() << "  ";
+	pstFile << "0.3  0.01  8"; // PHIRATSUF, PHIREDLAM, NUMLAM
+	pstFile << "  lamforgive  derforgive" << endl;
+	pstFile << "10.0  10.0  0.001" << endl; // RELPARMAX, FACPARMAX, FACORIG
+	pstFile << "0.1  1"; // PHIREDSWH, NOPTSWITCH
+	if (PestGeneral->checkBOUNDSCALEOption() && PestGeneral->checkSVDOption()) pstFile << "  boundscale";
+	pstFile << endl;
+	pstFile << PestGeneral->getNOPTMAX() << "  ";
+	pstFile << PestGeneral->getPHIREDSTP() << "  ";
+	pstFile << PestGeneral->getNPHISTP() << "  ";
+	pstFile << PestGeneral->getNPHINORED() << "  ";
+	pstFile << PestGeneral->getRELPARSTP() << "  ";
+	pstFile << PestGeneral->getNRELPAR() << endl;
+	pstFile << "0  0  0"; // ICOV, ICOR, and IEIG
+	pstFile << "  parsaveitn" << endl;
+	//============ Singular Value Decomposition Section ============
+	pstFile << "* singular value decomposition" << endl;
+	if (PestGeneral->checkSVDOption()) {pstFile << "2";} else {pstFile << "0";} //*** 2 or 1
+	pstFile << endl;
+	pstFile << NPAR << "  5.0E-7" << endl; // MAXSING = NPAR, EIGTHRESH
+	pstFile << "1" << endl;
+	//============ Parameter Groups Section ============
+	pstFile << "* parameter groups" << endl;
+	string const PARGPNME = "pgnam";
+	string const INCTYP = "relative";
+	double const DERINC = 0.01;
+	double const DERINCLB = 0.0;
+	string const FORCEN = "switch";
+	double const DERINCMUL = 1.5;
+	string const DERMTHD = "parabolic";
+	pstFile << PARGPNME << "  " << INCTYP << "  " << DERINC << "  " << DERINCLB;
+	pstFile << "  " << FORCEN << "  " << DERINCMUL << "  " << DERMTHD << endl;
+	//============ Parameter Data Section ============
+	pstFile << "* parameter data" << endl;
+	vector<double> fVect, hVect, sVect, gVect;
+	//---- if not the first iteration (idRemovedChnl != -999): removing one of the previous optimized channels ----
+	if (idRemovedChnl != -999)
+	{
+	  ifstream optResFile ("MFIT.sol");
+	  if (optResFile)
+	  {
+		string line, paramName;
+		char idParam;
+		int idChnl;
+		double paramValue, scale, offset;
+		getline(optResFile, line);
+		while (getline(optResFile, line))
+		{
+		  istringstream (line) >> paramName >> paramValue >> scale >> offset;
+		  idParam = paramName[0];
+		  istringstream(paramName.substr(1,paramName.size()-1)) >> idChnl;
+		  if (idChnl != idRemovedChnl)
+		  {
+			if (idParam == 'f') fVect.push_back(paramValue);
+			if (idParam == 'h') hVect.push_back(paramValue);
+			if (idParam == 's') sVect.push_back(paramValue);
+			if (idParam == 'g') gVect.push_back(paramValue);
+		  }
+		}
+	  }
+	}
+	//---- first processed: c0 parameter ----
+	if (optFlag_c0 == 1) // optimization is required
+	{
+	  pstFile << "c0"; // PARNME
+	  if (logTr_c0) pstFile << "  Log"; else pstFile << "  None"; // PARTRANS
+	  pstFile << "  factor"; // PARCHGLIM
+	  double c0_init = MDMed->getC0(); // initial user-specified value
+	  // Is an optimized value available from a previous iteration? If yes this optimized value is used rather than the user-specified value.
+	  ifstream optResFile ("MFIT.sol");
+	  if (optResFile)
+	  {
+		string line, paramName;
+		double paramValue, scale, offset;
+		getline(optResFile, line);
+		while (getline(optResFile, line))
+		{
+		  istringstream (line) >> paramName >> paramValue >> scale >> offset;
+		  if (paramName == "c0")
+		  {
+			c0_init = paramValue;
+			break;
+		  }
+		}
+	  }
+	  pstFile << "  " << c0_init; // PARVAL1 (initial parameter value)
+	  pstFile << "  " << pestAutoChnlParams[0][2] ; // PARLBND (parameter's lower bound)
+	  pstFile << "  " << pestAutoChnlParams[0][3] ; // PARUBND (parameter's upper bound)
+	  pstFile << "  " << "pgnam"; // PARGP
+	  pstFile << "  " << 1.0; // SCALE
+	  pstFile << "  " << 0.0; // OFFSET
+	  int DERCOM;
+	  if (PestGeneral->checkEXTDRVOption()) {DERCOM = 0;} else {DERCOM = 1;}
+	  pstFile << "  " << DERCOM; // 0 if use of external (analytical) derivatives, 1 if use of finite-difference derivatives
+	  pstFile << endl;
+	}
+	//---------- Then, for each channel ----------
+	for (int idChnl = 1; idChnl <= n; idChnl++)
+	{
+	  //------ f ------
+	  if (optFlag_f == 1) // must be optimized
+	  {
+		pstFile << "f" << idChnl; // PARNME
+		if (logTr_f) pstFile << "  Log"; else pstFile << "  None"; // PARTRANS
+		pstFile << "  factor"; // PARCHGLIM
+		double f_init;
+		if (fVect.size()>0) // Is an optimized value available from a previous iteration? If yes this optimized value is used rather than the default value (see below).
+		{
+		  f_init = fVect[idChnl-1];
+		}
+		else f_init = MDMed->getChnlParam(1, 1)/double(n);
+		pstFile << "  " << f_init; // PARVAL1 (initial parameter value)
+		pstFile << "  " << pestAutoChnlParams[1][2] << "  " << pestAutoChnlParams[1][3] ; // PARLBND, PARUBND
+		int DERCOM;
+		if (PestGeneral->checkEXTDRVOption()) {DERCOM = 0;} else {DERCOM = 1;}
+		pstFile << "  " << "pgnam" << "  " << 1.0 << "  " << 0.0 << "  " << DERCOM << endl; // PARGP, SCALE, OFFSET, DERCOM
+	  }
+	  //------ h(T0) ------
+	  if (optFlag_h == 1)
+	  {
+		pstFile << "h" << idChnl;
+		if (logTr_h) pstFile << "  Log"; else pstFile << "  None";
+		pstFile << "  factor";
+		double h_init;
+		if (hVect.size()>0) h_init = hVect[idChnl-1];
+		else
+		{
+		  if (n > 1) // h(T0) values are uniformly distributed between tMin et tMax
+		  {
+			h_init = TCobs_Form->getTobsC05() + (idChnl-1)*(TCobs_Form->getTobsC95()-TCobs_Form->getTobsC05())/(n-1);
+		  }
+		  else // only one channel
+		  {
+			h_init = 0.5*TCobs_Form->getTobsC05() + 0.5*TCobs_Form->getTobsC95();
+		  }
+		}
+		pstFile << "  " << h_init;
+		pstFile << "  " << pestAutoChnlParams[2][2] << "  " << pestAutoChnlParams[2][3] ;
+		int DERCOM;
+		if (PestGeneral->checkEXTDRVOption()) {DERCOM = 0;} else {DERCOM = 1;}
+		pstFile << "  " << "pgnam" << "  " << 1.0 << "  " << 0.0 << "  " << DERCOM << endl;
+	  }
+	  //------ s(Pe) ------
+	  if (optFlag_s == 1)
+	  {
+		pstFile << "s" << idChnl;
+		if (logTr_s) pstFile << "  Log"; else pstFile << "  None";
+		pstFile << "  factor";
+		double s_init;
+		if (sVect.size()>0) s_init = sVect[idChnl-1];
+		else // Pe values are tuned in order to obtain well separated concentration peaks
+		{
+		  double hForsinit;
+		  if (hVect.size()>0) hForsinit = hVect[idChnl-1];
+		  else
+		  {
+			if (n > 1) // h(T0) values are uniformly distributed between tMin et tMax
+			{
+			  hForsinit = TCobs_Form->getTobsC05() + (idChnl-1)*(TCobs_Form->getTobsC95()-TCobs_Form->getTobsC05())/(n-1);
+			}
+			else // only one channel
+			{
+			  hForsinit = 0.5*TCobs_Form->getTobsC05() + 0.5*TCobs_Form->getTobsC95();
+			}
+		  }
+		  s_init = pow(15*n*hForsinit/(TCobs_Form->getTobsC95()-TCobs_Form->getTobsC05()),2);
+		  if (s_init > double(999)) s_init = double(999); // to prevent an over thresholding of the function exp()
+		}
+		pstFile << "  " << s_init;
+		pstFile << "  " << pestAutoChnlParams[3][2] << "  " << pestAutoChnlParams[3][3] ;
+		int DERCOM;
+		if (PestGeneral->checkEXTDRVOption()) {DERCOM = 0;} else {DERCOM = 1;}
+		pstFile << "  " << "pgnam" << "  " << 1.0 << "  " << 0.0 << "  " << DERCOM << endl;
+	  }
+	  //------ g ------
+	  if (optFlag_g == 1)
+	  {
+		pstFile << "g" << idChnl;
+		if (logTr_g) pstFile << "  Log"; else pstFile << "  None";
+		pstFile << "  factor";
+		double g_init;
+		if (gVect.size()>0)	g_init = gVect[idChnl-1];
+		else g_init = 0.1; //*** arbitrary
+		pstFile << "  " << g_init;
+		pstFile << "  " << pestAutoChnlParams[4][2] << "  " << pestAutoChnlParams[4][3] ;
+		int DERCOM;
+		if (PestGeneral->checkEXTDRVOption()) {DERCOM = 0;} else {DERCOM = 1;}
+		pstFile << "  " << "pgnam" << "  " << 1.0 << "  " << 0.0 << "  " << DERCOM << endl;
+	  }
+	}
+	//---------- Observation Groups Section ----------
+	pstFile << "* observation groups" << endl;
+	pstFile << "Conc" << endl;
+	if (PESTMODE == "regularisation")
+	{
+	  if ((PestGeneral->getTikRegType() == 2) && (optFlag_c0 == 1)) pstFile << "regulc0" << endl;
+	  if (optFlag_f == 1) pstFile << "regulF" << endl;
+	  if (optFlag_h == 1) pstFile << "regulH" << endl;
+	  if (optFlag_s == 1) pstFile << "regulS" << endl;
+	  if (optFlag_g == 1) pstFile << "regulG" << endl;
+	}
+	//============ Observation Data Section ============
+	pstFile << "* observation data" << endl;
+	// The "observed" concentration and weigth values are interpolated at simulation time values
+	vector<double> vectUserObsT;
+	vector<double> vectUserObsC;
+	vector<double> vectUserObsW;
+	for (int i = 0; i < TCobs_Form->getNoUserObs(); i++)
+	{
+	  vectUserObsT.push_back(TCobs_Form->getTobsValue(i));
+	  vectUserObsC.push_back(TCobs_Form->getCobsValue(i));
+	  vectUserObsW.push_back(TCobs_Form->getWobsValue(i));
+	}
+	tk::spline s1, s2; // see http://kluge.in-chemnitz.de/opensource/spline/
+	s1.set_points(vectUserObsT,vectUserObsC);
+	s2.set_points(vectUserObsT,vectUserObsW);
+	double tsimMin = MDMed->getTsimMin();
+	double tsimMax = MDMed->getTsimMax();
+	for (int i = 0; i < noTimeSteps; i++)
+	{
+	  pstFile << "o" << i+1; // OBSNME
+	  double tSim = tsimMin + i*(tsimMax - tsimMin) / double(noTimeSteps - 1);
+	  double sUserObsC_tSim = s1(tSim); // Corresponding concentration value, interpolated from the Observation_Dialog StringGrig
+	  if (sUserObsC_tSim<0) sUserObsC_tSim = 0;
+	  double sUserObsW_tSim = s2(tSim); // Corresponding weight value, interpolated from the Observation_Dialog StringGrig
+	  if (sUserObsW_tSim<0) sUserObsW_tSim = 0;
+	  pstFile << "  " << sUserObsC_tSim; // OBSVAL
+	  pstFile << "  " << sUserObsW_tSim; // WEIGHT
+	  pstFile << "  " << "Conc" << endl; //OBGNME
+	}
+	//========= Derivative Command Line Section ==========
+	if (PestGeneral->checkEXTDRVOption())
+	{
+	  pstFile << "* derivatives command line" << endl;
+	  pstFile << "MDMed /d" << endl; // derivative command line...
+	  pstFile << "Deriv.txt"; // EXTDERFLE
+	  pstFile << endl;
+	}
+	//============ Model Command Line Section ============
+	pstFile << "* model command line" << endl;
+	pstFile << "MDMed" << endl;
+	//============ Model Input/Output Section ============
+	pstFile << "* model input/output" << endl;
+	pstFile << "MFIT.tpl"; // TEMPFLE
+	pstFile << "  " << "Input.txt"; // INFLE
+	pstFile << endl;
+	pstFile << "MFIT.ins"; // INSFLE
+	pstFile << "  " << "Output.txt"; // OUTFLE
+	pstFile << endl;
+	//============ Prior Information Section ============
+	pstFile << "* prior information" << endl;
+	if ((PESTMODE == "regularisation")&&(PestGeneral->getTikRegType() == 1)) // preferred homogeneity
+	{
+	  int noPi(1);
+	  if (optFlag_f == 1)
+	  {
+		for (int i = 1; i < n; i++)
+		{
+		  for (int j = 1; j < n-i+1; j++)
+		  {
+			pstFile << "pi" << noPi << "  1.0 * ";
+			noPi++;
+			if (logTr_f) pstFile << "log(f" << i << ") - 1.0 * log(f" << i+j << ")";
+			else pstFile << "f" << i << " - 1.0 * f" << i+j;
+			pstFile << " = 0.0 1.0 regulF" << endl;
+		  }
+		}
+	  }
+	  if (optFlag_h == 1)
+	  {
+		for (int i = 1; i < n; i++)
+		{
+		  for (int j = 1; j < n-i+1; j++)
+		  {
+			pstFile << "pi" << noPi << "  1.0 * ";
+			noPi++;
+			if (logTr_h) pstFile << "log(h" << i << ") - 1.0 * log(h" << i+j << ")";
+			else pstFile << "h" << i << " - 1.0 * h" << i+j;
+			pstFile << " = 0.0 1.0 regulH" << endl;
+		  }
+		}
+	  }
+	  if (optFlag_s == 1)
+	  {
+		for (int i = 1; i < n; i++)
+		{
+		  for (int j = 1; j < n-i+1; j++)
+		  {
+			pstFile << "pi" << noPi << "  1.0 * ";
+			noPi++;
+			if (logTr_s) pstFile << "log(s" << i << ") - 1.0 * log(s" << i+j << ")";
+			else pstFile << "s" << i << " - 1.0 * s" << i+j;
+			pstFile << " = 0.0 1.0 regulS" << endl;
+		  }
+		}
+	  }
+	  if (optFlag_g == 1)
+	  {
+		for (int i = 1; i < n; i++)
+		{
+		  for (int j = 1; j < n-i+1; j++)
+		  {
+			pstFile << "pi" << noPi << "  1.0 * ";
+			noPi++;
+			if (logTr_g) pstFile << "log(g" << i << ") - 1.0 * log(g" << i+j << ")";
+			else pstFile << "g" << i << " - 1.0 * g" << i+j;
+			pstFile << " = 0.0 1.0 regulG" << endl;
+		  }
+		}
+	  }
+	}
+	else if ((PESTMODE == "regularisation")&&(PestGeneral->getTikRegType() == 2)) // preferred value
+	{
+	  int noPi(1);
+	  if (optFlag_c0 == 1)
+	  {
+		double c0_init = MDMed->getC0(); // initial user-specified value
+		pstFile << "pi" << noPi << "  1.0 * ";
+		noPi++;
+		if (logTr_c0) pstFile << "log(c0) = " << log10(c0_init);
+		else pstFile << "c0 = " << c0_init;
+		pstFile << " 1.0 regulC0" << endl;
+	  }
+	  if (optFlag_f == 1)
+	  {
+		double f_init = MDMed->getChnlParam(1, 1);
+		for (int i = 1; i <= n; i++)
+		{
+		  pstFile << "pi" << noPi << "  1.0 * ";
+		  noPi++;
+		  if (logTr_f) pstFile << "log(f" << i << ") = " << log10(f_init);
+		  else pstFile << "f" << i << " = " << f_init;
+		  pstFile << " 1.0 regulF" << endl;
+		}
+	  }
+	  if (optFlag_h == 1)
+	  {
+		double h_init = MDMed->getChnlParam(1, 2);
+		for (int i = 1; i <= n; i++)
+		{
+		  pstFile << "pi" << noPi << "  1.0 * ";
+		  noPi++;
+		  if (logTr_h) pstFile << "log(h" << i << ") = " << log10(h_init);
+		  else pstFile << "h" << i << " = " << h_init;
+		  pstFile << " 1.0 regulH" << endl;
+		}
+	  }
+	  if (optFlag_s == 1)
+	  {
+		double s_init = MDMed->getChnlParam(1, 3);
+		for (int i = 1; i <= n; i++)
+		{
+		  pstFile << "pi" << noPi << "  1.0 * ";
+		  noPi++;
+		  if (logTr_s) pstFile << "log(s" << i << ") = " << log10(s_init);
+		  else pstFile << "s" << i << " = " << s_init;
+		  pstFile << " 1.0 regulS" << endl;
+		}
+	  }
+	  if (optFlag_g == 1)
+	  {
+		double g_init = MDMed->getChnlParam(1, 4);
+		for (int i = 1; i <= n; i++)
+		{
+		  pstFile << "pi" << noPi << "  1.0 * ";
+		  noPi++;
+		  if (logTr_g) pstFile << "log(g" << i << ") = " << log10(g_init);
+		  else pstFile << "g" << i << " = " << g_init;
+		  pstFile << " 1.0 regulG" << endl;
+		}
+	  }
+	}
+	//============= Regularisation Section ============
+	if (PESTMODE == "regularisation")
+	{
+	  pstFile << "* regularisation" << endl;
+	  pstFile << PestGeneral->getPHIMLIM() << "  ";
+	  pstFile << PestGeneral->getPHIMACCEPT() << endl;
+	  pstFile << "1.0  1.0E-15  1.0E+15" << endl; //WFINIT, WFMIN, WFMAX
+	  pstFile << "1.3  2.0E-3  "; // WFFAC, WFTOL
+	  pstFile << PestGeneral->getIREGADJ() << endl;
+	}
+  }
+}
+//---------------------------------------------------------------------------
