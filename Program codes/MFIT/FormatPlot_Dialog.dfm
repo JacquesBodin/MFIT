@@ -3,8 +3,8 @@ object FormatPlot_Form: TFormatPlot_Form
   Top = 321
   BorderStyle = bsDialog
   Caption = 'Format Plot'
-  ClientHeight = 347
-  ClientWidth = 361
+  ClientHeight = 201
+  ClientWidth = 340
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,14 +12,14 @@ object FormatPlot_Form: TFormatPlot_Form
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesigned
+  Position = poMainFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Ok_Button: TButton
-    Left = 8
-    Top = 314
+    Left = 49
+    Top = 161
     Width = 75
     Height = 25
     Caption = 'OK'
@@ -27,8 +27,8 @@ object FormatPlot_Form: TFormatPlot_Form
     OnClick = Ok_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 89
-    Top = 314
+    Left = 130
+    Top = 161
     Width = 75
     Height = 25
     Caption = 'Cancel'
@@ -36,8 +36,8 @@ object FormatPlot_Form: TFormatPlot_Form
     OnClick = Cancel_ButtonClick
   end
   object Apply_Button: TButton
-    Left = 170
-    Top = 314
+    Left = 211
+    Top = 161
     Width = 75
     Height = 25
     Caption = 'Apply'

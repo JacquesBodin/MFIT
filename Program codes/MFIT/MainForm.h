@@ -52,11 +52,11 @@ __published:	// Composants gérés par l'EDI
 	TMenuItem *TM_Menu;
 	TMenuItem *WrkDirMenu;
 	TMenuItem *N1;
-	TMenuItem *ADEiMenu;
+	TMenuItem *MDMi_menu;
 	TMenuItem *ADEiParamMenu;
-	TMenuItem *ADEniMenu;
+	TMenuItem *MDMed_menu;
 	TMenuItem *ADEniParamMenu;
-	TMenuItem *SFDMmenu;
+	TMenuItem *MDP_SFDM_menu;
 	TMenuItem *SFDMparamMenu;
 	TMenuItem *N3;
 	TMenuItem *BTCcalcMenu;
@@ -83,7 +83,7 @@ __published:	// Composants gérés par l'EDI
 	TLabel *Label3;
 	TButton *PhiN_Cancel;
 	TButton *PhiN_OK;
-	TMenuItem *TwoRNEmenu;
+	TMenuItem *MDP_2RNE_menu;
 	TMenuItem *TwoRNEparamMenu;
 	TMenuItem *InversionResultsMenu;
 	TMenuItem *OpenPhiN_SplitViewPannel;

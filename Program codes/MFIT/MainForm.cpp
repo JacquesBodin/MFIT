@@ -57,7 +57,7 @@ void __fastcall TMain_Form::WrkDirMenuClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::ADEiParamMenuClick(TObject *Sender)
 {
-  if (!ADEiMenu->Checked)
+  if (!MDMi_menu->Checked)
   {
 	PhiN_Chart->Series[0]->Clear();
 	PhiN_Chart->Series[1]->Clear();
@@ -79,7 +79,7 @@ void __fastcall TMain_Form::ADEiParamMenuClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::ADEniParamMenuClick(TObject *Sender)
 {
-  if (!ADEniMenu->Checked)
+  if (!MDMed_menu->Checked)
   {
 	PhiN_Chart->Series[0]->Clear();
 	PhiN_Chart->Series[1]->Clear();
@@ -101,7 +101,7 @@ void __fastcall TMain_Form::ADEniParamMenuClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::SFDMparamMenuClick(TObject *Sender)
 {
-  if (!SFDMmenu->Checked)
+  if (!MDP_SFDM_menu->Checked)
   {
 	PhiN_Chart->Series[0]->Clear();
 	PhiN_Chart->Series[1]->Clear();
@@ -123,7 +123,7 @@ void __fastcall TMain_Form::SFDMparamMenuClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::TwoRNEparamMenuClick(TObject *Sender)
 {
-  if (!TwoRNEmenu->Checked)
+  if (!MDP_2RNE_menu->Checked)
   {
 	PhiN_Chart->Series[0]->Clear();
 	PhiN_Chart->Series[1]->Clear();
@@ -217,10 +217,10 @@ vector< vector<double> > __fastcall TMain_Form::get_AutoChnlSolBTC(int n) const
 }
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::BTCcalcMenuClick(TObject *Sender)
-{ if (ADEiMenu->Checked) system("MDMi");
-  else if (ADEniMenu->Checked)	system("MDMed");
-  else if (SFDMmenu->Checked) system("MDP_SFDM");
-  else if (TwoRNEmenu->Checked) system("MDP_2RNE");
+{ if (MDMi_menu->Checked) system("MDMi");
+  else if (MDMed_menu->Checked)	system("MDMed");
+  else if (MDP_SFDM_menu->Checked) system("MDP_SFDM");
+  else if (MDP_2RNE_menu->Checked) system("MDP_2RNE");
   if (process_Model_Output())
   {
 	plot_modelBTC(m_modelBTC);
@@ -252,22 +252,22 @@ void __fastcall TMain_Form::PestOptionsMenuClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::PestUserChnlsClick(TObject *Sender)
 {
-  if (ADEiMenu->Checked)
+  if (MDMi_menu->Checked)
   {
 	PestADEiUserChnls->resetChnlNo_CBox();
 	PestADEiUserChnls->Show();
   }
-  else if (ADEniMenu->Checked)
+  else if (MDMed_menu->Checked)
   {
 	PestADEniUserChnls->resetChnlNo_CBox();
 	PestADEniUserChnls->Show();
   }
-  else if (SFDMmenu->Checked)
+  else if (MDP_SFDM_menu->Checked)
   {
 	PestSFDMuserChnls->resetChnlNo_CBox();
 	PestSFDMuserChnls->Show();
   }
-  else if (TwoRNEmenu->Checked)
+  else if (MDP_2RNE_menu->Checked)
   {
 	Pest2RNEuserChnls->resetChnlNo_CBox();
 	Pest2RNEuserChnls->Show();
@@ -276,17 +276,17 @@ void __fastcall TMain_Form::PestUserChnlsClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::PestAutoChnlsClick(TObject *Sender)
 {
-  if (ADEiMenu->Checked) PestADEiAutoChnls->Show();
-  else if (ADEniMenu->Checked) PestADEniAutoChnls->Show();
-  else if (SFDMmenu->Checked) PestSFDMautoChnls->Show();
-  else if (TwoRNEmenu->Checked) Pest2RNEautoChnls->Show();
+  if (MDMi_menu->Checked) PestADEiAutoChnls->Show();
+  else if (MDMed_menu->Checked) PestADEniAutoChnls->Show();
+  else if (MDP_SFDM_menu->Checked) PestSFDMautoChnls->Show();
+  else if (MDP_2RNE_menu->Checked) Pest2RNEautoChnls->Show();
 }
 //---------------------------------------------------------------------------
 void __fastcall TMain_Form::PestCreateDatasetsMenuClick(TObject *Sender)
 {
   PestGeneral->savePestOptions();
   remove("MFIT.sol");
-  if (ADEiMenu->Checked)
+  if (MDMi_menu->Checked)
   {
 	MDMi->newPestInstructionFile();
 	if (PestUserChnls->Checked) // "UserChannels" option: the Pest optimization is based on a fixed number of channels, specified by the user
@@ -301,7 +301,7 @@ void __fastcall TMain_Form::PestCreateDatasetsMenuClick(TObject *Sender)
 	  PestADEiAutoChnls->newPestControlFile(nMax, -999);
 	}
   }
-  else if (ADEniMenu->Checked)
+  else if (MDMed_menu->Checked)
   {
 	MDMed->newPestInstructionFile();
 	if (PestUserChnls->Checked)
@@ -316,7 +316,7 @@ void __fastcall TMain_Form::PestCreateDatasetsMenuClick(TObject *Sender)
 	  PestADEniAutoChnls->newPestControlFile(nMax, -999);
 	}
   }
-  else if (SFDMmenu->Checked)
+  else if (MDP_SFDM_menu->Checked)
   {
 	MDP_SFDM->newPestInstructionFile();
 	if (PestUserChnls->Checked)
@@ -331,7 +331,7 @@ void __fastcall TMain_Form::PestCreateDatasetsMenuClick(TObject *Sender)
 	  PestSFDMautoChnls->newPestControlFile(nMax, -999);
 	}
   }
-  else if (TwoRNEmenu->Checked)
+  else if (MDP_2RNE_menu->Checked)
   {
 	MDP_2RNE->newPestInstructionFile();
 	if (PestUserChnls->Checked)
@@ -392,17 +392,17 @@ void __fastcall TMain_Form::RunPestMenuClick(TObject *Sender)
   int n_ini;
   if (PestUserChnls->Checked)
   {
-	if (ADEiMenu->Checked) n_ini = MDMi->getN();
-	else if (ADEniMenu->Checked) n_ini = MDMed->getN();
-	else if (SFDMmenu->Checked) n_ini = MDP_SFDM->getN();
-	else if (TwoRNEmenu->Checked) n_ini = MDP_2RNE->getN();
+	if (MDMi_menu->Checked) n_ini = MDMi->getN();
+	else if (MDMed_menu->Checked) n_ini = MDMed->getN();
+	else if (MDP_SFDM_menu->Checked) n_ini = MDP_SFDM->getN();
+	else if (MDP_2RNE_menu->Checked) n_ini = MDP_2RNE->getN();
   }
   else // PestAutoChnls->Checked
   {
-	if (ADEiMenu->Checked) n_ini = PestADEiAutoChnls->Nmax_Edit->Text.ToInt();
-	else if (ADEniMenu->Checked) n_ini = PestADEniAutoChnls->Nmax_Edit->Text.ToInt();
-	else if (SFDMmenu->Checked) n_ini = PestSFDMautoChnls->Nmax_Edit->Text.ToInt();
-	else if (TwoRNEmenu->Checked) n_ini = Pest2RNEautoChnls->Nmax_Edit->Text.ToInt();
+	if (MDMi_menu->Checked) n_ini = PestADEiAutoChnls->Nmax_Edit->Text.ToInt();
+	else if (MDMed_menu->Checked) n_ini = PestADEniAutoChnls->Nmax_Edit->Text.ToInt();
+	else if (MDP_SFDM_menu->Checked) n_ini = PestSFDMautoChnls->Nmax_Edit->Text.ToInt();
+	else if (MDP_2RNE_menu->Checked) n_ini = Pest2RNEautoChnls->Nmax_Edit->Text.ToInt();
   }
   //---- First Pest optimization, based either on a fixed number of channels
   //----   specified by the user (option "UserChannels"), or on the maximum
@@ -447,32 +447,32 @@ void __fastcall TMain_Form::RunPestMenuClick(TObject *Sender)
 	  PhiN_Chart->Series[0]->AddXY(nMax,phi);
 	  remove("MFIT.sol");
 	  rename("MFIT.par","MFIT.sol");
-	  if (ADEiMenu->Checked)
+	  if (MDMi_menu->Checked)
 	  {
 		MDMi->initAutoChnlSols(nMax); // initialisation of the [1~nMax] channel solutions, parameter values set to -999
 		MDMi->setAutoChnlSol(nMax); // setting the correct (optimized) parameter values of the nMax-channel solution
 	  }
-	  else if (ADEniMenu->Checked)
+	  else if (MDMed_menu->Checked)
 	  {
 		MDMed->initAutoChnlSols(nMax);
 		MDMed->setAutoChnlSol(nMax);
 	  }
-	  else if (SFDMmenu->Checked)
+	  else if (MDP_SFDM_menu->Checked)
 	  {
 		MDP_SFDM->initAutoChnlSols(nMax);
 		MDP_SFDM->setAutoChnlSol(nMax);
 	  }
-	  else if (TwoRNEmenu->Checked)
+	  else if (MDP_2RNE_menu->Checked)
 	  {
 		MDP_2RNE->initAutoChnlSols(nMax);
 		MDP_2RNE->setAutoChnlSol(nMax);
 	  }
 	  //-------- Computation of the number of AutoChannels optimzation runs: used for the ProgressBar --------
 	  int totalPestAutoChnlRuns;
-	  if (((ADEiMenu->Checked)&&(PestADEiAutoChnls->MICP_CheckBox->Checked))
-			  ||((ADEniMenu->Checked)&&(PestADEniAutoChnls->MICP_CheckBox->Checked))
-			  ||((SFDMmenu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked))
-			||((TwoRNEmenu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked)))
+	  if (((MDMi_menu->Checked)&&(PestADEiAutoChnls->MICP_CheckBox->Checked))
+			  ||((MDMed_menu->Checked)&&(PestADEniAutoChnls->MICP_CheckBox->Checked))
+			  ||((MDP_SFDM_menu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked))
+			||((MDP_2RNE_menu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked)))
 	  {
 		totalPestAutoChnlRuns = nMax*(nMax+1)/2;
 	  }
@@ -483,20 +483,20 @@ void __fastcall TMain_Form::RunPestMenuClick(TObject *Sender)
 	  do
 	  {
 		n--; //(-1 channel)
-		if (ADEiMenu->Checked) PestADEiAutoChnls->newPestTplFile(n);
-		else if (ADEniMenu->Checked) PestADEniAutoChnls->newPestTplFile(n);
-		else if (SFDMmenu->Checked) PestSFDMautoChnls->newPestTplFile(n);
-		else if (TwoRNEmenu->Checked) Pest2RNEautoChnls->newPestTplFile(n);
+		if (MDMi_menu->Checked) PestADEiAutoChnls->newPestTplFile(n);
+		else if (MDMed_menu->Checked) PestADEniAutoChnls->newPestTplFile(n);
+		else if (MDP_SFDM_menu->Checked) PestSFDMautoChnls->newPestTplFile(n);
+		else if (MDP_2RNE_menu->Checked) Pest2RNEautoChnls->newPestTplFile(n);
 		StatusBar->Panels->Items[0]->Text = "Optimization in progress, please wait...";
 		ActivityIndicator1->Animate = true;
 		double phiMinN(numeric_limits<double>::max()); // or DBL_MAX
 		bool pestOptSuccess(false);
 		for (int idRemovedChnl = n+1; idRemovedChnl >= 1; idRemovedChnl--)
 		{
-		  if (ADEiMenu->Checked) PestADEiAutoChnls->newPestControlFile(n, idRemovedChnl);
-		  else if (ADEniMenu->Checked)PestADEniAutoChnls->newPestControlFile(n, idRemovedChnl);
-		  else if (SFDMmenu->Checked) PestSFDMautoChnls->newPestControlFile(n, idRemovedChnl);
-		  else if (TwoRNEmenu->Checked) Pest2RNEautoChnls->newPestControlFile(n, idRemovedChnl);
+		  if (MDMi_menu->Checked) PestADEiAutoChnls->newPestControlFile(n, idRemovedChnl);
+		  else if (MDMed_menu->Checked)PestADEniAutoChnls->newPestControlFile(n, idRemovedChnl);
+		  else if (MDP_SFDM_menu->Checked) PestSFDMautoChnls->newPestControlFile(n, idRemovedChnl);
+		  else if (MDP_2RNE_menu->Checked) Pest2RNEautoChnls->newPestControlFile(n, idRemovedChnl);
 		  nPestAutoChnlRuns++;
 		  StatusBar->Panels->Items[2]->Text = nPestAutoChnlRuns;
 		  StatusBar->Panels->Items[2]->Text = StatusBar->Panels->Items[2]->Text + '/';
@@ -525,10 +525,10 @@ void __fastcall TMain_Form::RunPestMenuClick(TObject *Sender)
 			s4 =  s1 + sNoChnls + s3;
 			Main_Form->StatusBar->Panels->Items[1]->Text = s4.c_str();
 			Application->ProcessMessages(); // graphical display updating
-			if (((ADEiMenu->Checked)&&(PestADEiAutoChnls->MICP_CheckBox->Checked == false))
-				||((ADEniMenu->Checked)&&(PestADEniAutoChnls->MICP_CheckBox->Checked == false))
-				||((SFDMmenu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked == false))
-				||((TwoRNEmenu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked == false)))
+			if (((MDMi_menu->Checked)&&(PestADEiAutoChnls->MICP_CheckBox->Checked == false))
+				||((MDMed_menu->Checked)&&(PestADEniAutoChnls->MICP_CheckBox->Checked == false))
+				||((MDP_SFDM_menu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked == false))
+				||((MDP_2RNE_menu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked == false)))
 			{
 			  break;
 			}
@@ -551,10 +551,10 @@ void __fastcall TMain_Form::RunPestMenuClick(TObject *Sender)
 		  if (phiMinN > phiMaxAutoChnls) phiMaxAutoChnls = phiMinN;
 		  remove("MFIT.sol");
 		  rename("MFIT.par.best", "MFIT.sol");
-		  if (ADEiMenu->Checked) MDMi->setAutoChnlSol(n);
-		  else if (ADEniMenu->Checked) MDMed->setAutoChnlSol(n);
-		  else if (SFDMmenu->Checked) MDP_SFDM->setAutoChnlSol(n);
-		  else if (TwoRNEmenu->Checked) MDP_2RNE->setAutoChnlSol(n);
+		  if (MDMi_menu->Checked) MDMi->setAutoChnlSol(n);
+		  else if (MDMed_menu->Checked) MDMed->setAutoChnlSol(n);
+		  else if (MDP_SFDM_menu->Checked) MDP_SFDM->setAutoChnlSol(n);
+		  else if (MDP_2RNE_menu->Checked) MDP_2RNE->setAutoChnlSol(n);
 		}
 		else // n-channel optimization failed
 		{
@@ -644,7 +644,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 
 	  // Transport simulation parameters
 	  mfiFile << endl << "MODEL PARAMETERS" << endl;
-	  if (ADEiMenu->Checked)
+	  if (MDMi_menu->Checked)
 	  {
 		int const modelFlag = 0; // numerical "flag" for ADE_inst
 		mfiFile << modelFlag << endl;
@@ -668,7 +668,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 		  }
 		}
 	  }
-	  else if (ADEniMenu->Checked)
+	  else if (MDMed_menu->Checked)
 	  {
 		int const modelFlag = 1; // ADE_NonInst
 		mfiFile << modelFlag << endl;
@@ -692,7 +692,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 		  }
 		}
 	  }
-	  else if (SFDMmenu->Checked)
+	  else if (MDP_SFDM_menu->Checked)
 	  {
 		int const modelFlag = 2; // SFDM
 		mfiFile << modelFlag << endl;
@@ -716,7 +716,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 		  }
 		}
 	  }
-	  else if (TwoRNEmenu->Checked)
+	  else if (MDP_2RNE_menu->Checked)
 	  {
 		int const modelFlag = 3; // 2RNE
 		mfiFile << modelFlag << endl;
@@ -775,10 +775,10 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 	  {
 		mfiFile << "0" << endl; // UserChannels option flag
 		vector< vector<double> > vectPestUserChnlParams; // a series of [Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform]
-		if (ADEiMenu->Checked) vectPestUserChnlParams = PestADEiUserChnls->getPestParams();
-		else if (ADEniMenu->Checked) vectPestUserChnlParams = PestADEniUserChnls->getPestParams();
-		else if (SFDMmenu->Checked) vectPestUserChnlParams = PestSFDMuserChnls->getPestParams();
-		else if (TwoRNEmenu->Checked) vectPestUserChnlParams = Pest2RNEuserChnls->getPestParams();
+		if (MDMi_menu->Checked) vectPestUserChnlParams = PestADEiUserChnls->getPestParams();
+		else if (MDMed_menu->Checked) vectPestUserChnlParams = PestADEniUserChnls->getPestParams();
+		else if (MDP_SFDM_menu->Checked) vectPestUserChnlParams = PestSFDMuserChnls->getPestParams();
+		else if (MDP_2RNE_menu->Checked) vectPestUserChnlParams = Pest2RNEuserChnls->getPestParams();
 		int const noPestParams = vectPestUserChnlParams.size();
 		mfiFile << noPestParams << endl;
 		if (noPestParams > 0)
@@ -796,24 +796,24 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 	  else if (PestAutoChnls->Checked) // option "AutoChannels"
 	  {
 		mfiFile << "1" << endl; // AutoChannels option flag
-		if (((ADEiMenu->Checked)&&(PestADEiAutoChnls->MICP_CheckBox->Checked))
-			||((ADEniMenu->Checked)&&(PestADEniAutoChnls->MICP_CheckBox->Checked))
-			||((SFDMmenu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked))
-			||((TwoRNEmenu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked)))
+		if (((MDMi_menu->Checked)&&(PestADEiAutoChnls->MICP_CheckBox->Checked))
+			||((MDMed_menu->Checked)&&(PestADEniAutoChnls->MICP_CheckBox->Checked))
+			||((MDP_SFDM_menu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked))
+			||((MDP_2RNE_menu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked)))
 		{ mfiFile << "1" << endl; } else { mfiFile << "0" << endl; } // MICP option (Multiple Initial Condition Preconditionning)
 		vector< vector<double> > vectPestAutoChnlParams; // a series of [Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform]
-		if (ADEiMenu->Checked) vectPestAutoChnlParams = PestADEiAutoChnls->getPestParams();
-		else if (ADEniMenu->Checked) vectPestAutoChnlParams = PestADEniAutoChnls->getPestParams();
-		else if (SFDMmenu->Checked) vectPestAutoChnlParams = PestSFDMautoChnls->getPestParams();
-		else if (TwoRNEmenu->Checked) vectPestAutoChnlParams = Pest2RNEautoChnls->getPestParams();
+		if (MDMi_menu->Checked) vectPestAutoChnlParams = PestADEiAutoChnls->getPestParams();
+		else if (MDMed_menu->Checked) vectPestAutoChnlParams = PestADEniAutoChnls->getPestParams();
+		else if (MDP_SFDM_menu->Checked) vectPestAutoChnlParams = PestSFDMautoChnls->getPestParams();
+		else if (MDP_2RNE_menu->Checked) vectPestAutoChnlParams = Pest2RNEautoChnls->getPestParams();
 		int const noPestParams = vectPestAutoChnlParams.size();
 		mfiFile << noPestParams << endl;
 		if (noPestParams > 0)
 		{
-		  if (ADEiMenu->Checked) mfiFile << PestADEiAutoChnls->Nmax_Edit->Text.ToInt() << endl;
-		  else if (ADEniMenu->Checked) mfiFile << PestADEniAutoChnls->Nmax_Edit->Text.ToInt() << endl;
-		  else if (SFDMmenu->Checked) mfiFile << PestSFDMautoChnls->Nmax_Edit->Text.ToInt() << endl;
-		  else if (TwoRNEmenu->Checked) mfiFile << Pest2RNEautoChnls->Nmax_Edit->Text.ToInt() << endl;
+		  if (MDMi_menu->Checked) mfiFile << PestADEiAutoChnls->Nmax_Edit->Text.ToInt() << endl;
+		  else if (MDMed_menu->Checked) mfiFile << PestADEniAutoChnls->Nmax_Edit->Text.ToInt() << endl;
+		  else if (MDP_SFDM_menu->Checked) mfiFile << PestSFDMautoChnls->Nmax_Edit->Text.ToInt() << endl;
+		  else if (MDP_2RNE_menu->Checked) mfiFile << Pest2RNEautoChnls->Nmax_Edit->Text.ToInt() << endl;
 		  for (int i = 0; i < noPestParams; i++)
 		  {
 			mfiFile << vectPestAutoChnlParams[i][0] << " "; // Type
@@ -848,7 +848,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 		  mfiFile << PhiN_Chart->Series[0]->YValues->Value[n-1] << endl;
 		}
 		// Optimized parameters
-		if (ADEiMenu->Checked)
+		if (MDMi_menu->Checked)
 		{
 		  for (int n = 1; n <= nMax; n++)
 		  {
@@ -865,7 +865,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 			}
 		  }
 		}
-		else if (ADEniMenu->Checked)
+		else if (MDMed_menu->Checked)
 		{
 		  for (int n = 1; n <= nMax; n++)
 		  {
@@ -883,7 +883,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 			}
 		  }
 		}
-		else if (SFDMmenu->Checked)
+		else if (MDP_SFDM_menu->Checked)
 		{
 		  for (int n = 1; n <= nMax; n++)
 		  {
@@ -901,7 +901,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 			}
 		  }
 		}
-		else if (TwoRNEmenu->Checked)
+		else if (MDP_2RNE_menu->Checked)
 		{
 		  for (int n = 1; n <= nMax; n++)
 		  {
@@ -946,10 +946,10 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  MDMed->resetForm();
 	  MDP_SFDM->resetForm();
 	  MDP_2RNE->resetForm();
-	  ADEiMenu->Checked = false;
-	  ADEniMenu->Checked = false;
-	  SFDMmenu->Checked = false;
-	  TwoRNEmenu->Checked = false;
+	  MDMi_menu->Checked = false;
+	  MDMed_menu->Checked = false;
+	  MDP_SFDM_menu->Checked = false;
+	  MDP_2RNE_menu->Checked = false;
 	  BTCcalcMenu->Enabled = false;
 	  TM_Menu->Enabled = true;
 	  TC_Chart->Series[0]->Clear();
@@ -1013,7 +1013,7 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  mfiFile >> modelFlag;
 	  if (modelFlag == 0) // MDMi
 	  {
-		ADEiMenu->Checked = true;
+		MDMi_menu->Checked = true;
 		mfiFile >> tSimMin >> tSimMax >> noTimeSteps >> qt;
 		MDMi->setTsimMin(tSimMin);
 		MDMi->setTsimMax(tSimMax);
@@ -1040,7 +1040,7 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  }
 	  else if (modelFlag == 1) // MDMed
 	  {
-		ADEniMenu->Checked = true;
+		MDMed_menu->Checked = true;
 		mfiFile >> tSimMin >> tSimMax >> noTimeSteps >> c0;
 		MDMed->setTsimMin(tSimMin);
 		MDMed->setTsimMax(tSimMax);
@@ -1067,7 +1067,7 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  }
 	  else if (modelFlag == 2) // MDP_SFDM
 	  {
-		SFDMmenu->Checked = true;
+		MDP_SFDM_menu->Checked = true;
 		mfiFile >> tSimMin >> tSimMax >> noTimeSteps >> qt;
 		MDP_SFDM->setTsimMin(tSimMin);
 		MDP_SFDM->setTsimMax(tSimMax);
@@ -1094,7 +1094,7 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  }
 	  else if (modelFlag == 3) // MDP_2RNE
 	  {
-		TwoRNEmenu->Checked = true;
+		MDP_2RNE_menu->Checked = true;
 		mfiFile >> tSimMin >> tSimMax >> noTimeSteps >> qt;
 		MDP_2RNE->setTsimMin(tSimMin);
 		MDP_2RNE->setTsimMax(tSimMax);
@@ -1499,22 +1499,22 @@ void __fastcall TMain_Form::PhiN_CancelClick(TObject *Sender)
 void __fastcall TMain_Form::PhiN_OKClick(TObject *Sender)
 {
   int const n(nUpDown->Position);
-  if (ADEiMenu->Checked)
+  if (MDMi_menu->Checked)
   {
 	MDMi->setParamGridFromSol(n);
 	MDMi->Show();
   }
-  else if (ADEniMenu->Checked)
+  else if (MDMed_menu->Checked)
   {
 	MDMed->setParamGridFromSol(n);
 	MDMed->Show();
   }
-  else if (SFDMmenu->Checked)
+  else if (MDP_SFDM_menu->Checked)
   {
 	MDP_SFDM->setParamGridFromSol(n);
 	MDP_SFDM->Show();
   }
-  else if (TwoRNEmenu->Checked)
+  else if (MDP_2RNE_menu->Checked)
   {
 	MDP_2RNE->setParamGridFromSol(n);
 	MDP_2RNE->Show();
@@ -1587,10 +1587,10 @@ void __fastcall TMain_Form::FileNewMenuClick(TObject *Sender)
 	MDMed->resetForm();
 	MDP_SFDM->resetForm();
 	MDP_2RNE->resetForm();
-	ADEiMenu->Checked = false;
-	ADEniMenu->Checked = false;
-	SFDMmenu->Checked = false;
-	TwoRNEmenu->Checked = false;
+	MDMi_menu->Checked = false;
+	MDMed_menu->Checked = false;
+	MDP_SFDM_menu->Checked = false;
+	MDP_2RNE_menu->Checked = false;
 	BTCcalcMenu->Enabled = false;
 	TM_Menu->Enabled = true;
   }
@@ -1837,4 +1837,5 @@ void __fastcall TMain_Form::CalUncertMenuClick(TObject *Sender)
   PestAbortSpeedButton->Visible = false;
 }
 //---------------------------------------------------------------------------
+
 

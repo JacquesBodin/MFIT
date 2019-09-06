@@ -63,11 +63,11 @@ inherited MDMi: TMDMi
     Caption = ' Total flow rate '
     TabOrder = 6
     object Label5: TLabel
-      Left = 16
+      Left = 20
       Top = 29
-      Width = 18
+      Width = 12
       Height = 13
-      Caption = 'QT:'
+      Caption = 'Q:'
     end
     object QT_Edit: TEdit
       Left = 37

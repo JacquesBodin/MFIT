@@ -72,7 +72,7 @@ double __fastcall TMDMi::getQT() const
 //---------------------------------------------------------------------------
 void __fastcall TMDMi::initChnlsParamGrid()
 {
-  if (Main_Form->ADEniMenu->Checked) // importing previously validated MDMed parameters into the MDMi parameter grid
+  if (Main_Form->MDMed_menu->Checked) // importing previously validated MDMed parameters into the MDMi parameter grid
   {
 	TsimMin_Edit->Text = MDMed->TsimMin_Edit->Text;
 	TsimMax_Edit->Text = MDMed->TsimMax_Edit->Text;
@@ -87,7 +87,7 @@ void __fastcall TMDMi::initChnlsParamGrid()
 	  ChnlParamGrid->Cells[3][row] = MDMed->ChnlParamGrid->Cells[3][row]; // s
 	}
   }
-  else if (Main_Form->SFDMmenu->Checked) // importing previously validated MDP_SFDM parameters into the MDMi parameter grid
+  else if (Main_Form->MDP_SFDM_menu->Checked) // importing previously validated MDP_SFDM parameters into the MDMi parameter grid
   {
 	TsimMin_Edit->Text = MDP_SFDM->TsimMin_Edit->Text;
 	TsimMax_Edit->Text = MDP_SFDM->TsimMax_Edit->Text;
@@ -104,7 +104,7 @@ void __fastcall TMDMi::initChnlsParamGrid()
 	  ChnlParamGrid->Cells[3][row] = MDP_SFDM->ChnlParamGrid->Cells[4][row]; // s
 	}
   }
-  else if (Main_Form->TwoRNEmenu->Checked) // importing previously validated MDP_2RNE parameters into the MDMi parameter grid
+  else if (Main_Form->MDP_2RNE_menu->Checked) // importing previously validated MDP_2RNE parameters into the MDMi parameter grid
   {
 	TsimMin_Edit->Text = MDP_2RNE->TsimMin_Edit->Text;
 	TsimMax_Edit->Text = MDP_2RNE->TsimMax_Edit->Text;
@@ -218,10 +218,10 @@ void __fastcall TMDMi::Ok_ButtonClick(TObject *Sender)
 	  addChnl(vectMHS);
 	  if (row < ChnlParamGrid->RowCount-1) modelInputFile << endl << endl;
 	}
-	Main_Form->ADEiMenu->Checked = true;
-	Main_Form->ADEniMenu->Checked = false;
-	Main_Form->SFDMmenu->Checked = false;
-    Main_Form->TwoRNEmenu->Checked = false;
+	Main_Form->MDMi_menu->Checked = true;
+	Main_Form->MDMed_menu->Checked = false;
+	Main_Form->MDP_SFDM_menu->Checked = false;
+    Main_Form->MDP_2RNE_menu->Checked = false;
 	Main_Form->BTCcalcMenu->Enabled = true;
 	Hide();
     Main_Form->notifyChanges();

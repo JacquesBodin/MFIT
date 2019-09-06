@@ -2,8 +2,8 @@ object UserObsFilter_Form: TUserObsFilter_Form
   Left = 617
   Top = 507
   BorderStyle = bsDialog
-  Caption = 'Observation Filters'
-  ClientHeight = 129
+  Caption = 'Observation Filter'
+  ClientHeight = 113
   ClientWidth = 302
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,7 +12,7 @@ object UserObsFilter_Form: TUserObsFilter_Form
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesigned
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
@@ -20,7 +20,6 @@ object UserObsFilter_Form: TUserObsFilter_Form
     Top = 8
     Width = 281
     Height = 65
-    Caption = ' Observation Filters '
     TabOrder = 0
     object Label1: TLabel
       Left = 192

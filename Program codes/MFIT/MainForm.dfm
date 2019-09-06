@@ -4246,32 +4246,32 @@ object Main_Form: TMain_Form
       object N1: TMenuItem
         Caption = '-'
       end
-      object ADEiMenu: TMenuItem
-        Caption = 'ADE instantaneous injection'
+      object MDMi_menu: TMenuItem
+        Caption = 'MDMi'
         object ADEiParamMenu: TMenuItem
           Caption = 'Parameters'
           Enabled = False
           OnClick = ADEiParamMenuClick
         end
       end
-      object ADEniMenu: TMenuItem
-        Caption = 'ADE non-instantaneous injection'
+      object MDMed_menu: TMenuItem
+        Caption = 'MDMed'
         object ADEniParamMenu: TMenuItem
           Caption = 'Parameters'
           Enabled = False
           OnClick = ADEniParamMenuClick
         end
       end
-      object SFDMmenu: TMenuItem
-        Caption = 'SFDM'
+      object MDP_SFDM_menu: TMenuItem
+        Caption = 'MDP_SFDM'
         object SFDMparamMenu: TMenuItem
           Caption = 'Parameters'
           Enabled = False
           OnClick = SFDMparamMenuClick
         end
       end
-      object TwoRNEmenu: TMenuItem
-        Caption = '2RNE'
+      object MDP_2RNE_menu: TMenuItem
+        Caption = 'MDP_2RNE'
         object TwoRNEparamMenu: TMenuItem
           Caption = 'Parameters'
           Enabled = False

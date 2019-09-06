@@ -20,11 +20,11 @@ inherited MDP_2RNE: TMDP_2RNE
     Caption = ' Total flow rate '
     TabOrder = 3
     object Label5: TLabel
-      Left = 16
+      Left = 20
       Top = 29
-      Width = 18
+      Width = 12
       Height = 13
-      Caption = 'QT:'
+      Caption = 'Q:'
     end
     object QT_Edit: TEdit
       Left = 37

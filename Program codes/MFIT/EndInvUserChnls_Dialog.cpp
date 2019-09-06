@@ -40,7 +40,7 @@ void __fastcall TEndInversionUserChnls_Form::OK_ButtonClick(TObject *Sender)
   ifstream optParFile ("MFIT.par");
   if (optParFile)
   {
-	if (Main_Form->ADEiMenu->Checked) // ADE_Inst & User Channels
+	if (Main_Form->MDMi_menu->Checked) // ADE_Inst & User Channels
 	{
 	  getline(optParFile, line);
 	  while (getline(optParFile, line))
@@ -58,7 +58,7 @@ void __fastcall TEndInversionUserChnls_Form::OK_ButtonClick(TObject *Sender)
 	  }
 	  MDMi->Show();
 	}
-	else if (Main_Form->ADEniMenu->Checked) // ADE NonInst & User Channels
+	else if (Main_Form->MDMed_menu->Checked) // ADE NonInst & User Channels
 	{
 	  getline(optParFile, line);
 	  while (getline(optParFile, line))
@@ -77,7 +77,7 @@ void __fastcall TEndInversionUserChnls_Form::OK_ButtonClick(TObject *Sender)
 	  }
 	  MDMed->Show();
 	}
-	else if (Main_Form->SFDMmenu->Checked) // SFDM & User Channels
+	else if (Main_Form->MDP_SFDM_menu->Checked) // SFDM & User Channels
 	{
 	  getline(optParFile, line);
 	  while (getline(optParFile, line))
@@ -96,7 +96,7 @@ void __fastcall TEndInversionUserChnls_Form::OK_ButtonClick(TObject *Sender)
 	  }
 	  MDP_SFDM->Show();
 	}
-	else if (Main_Form->TwoRNEmenu->Checked) // 2RNE & User Channels
+	else if (Main_Form->MDP_2RNE_menu->Checked) // 2RNE & User Channels
 	{
 	  getline(optParFile, line);
 	  while (getline(optParFile, line))

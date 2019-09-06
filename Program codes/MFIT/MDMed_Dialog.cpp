@@ -73,7 +73,7 @@ double __fastcall TMDMed::getC0() const
 //---------------------------------------------------------------------------
 void __fastcall TMDMed::initChnlsParamGrid()
 {
-  if (Main_Form->ADEiMenu->Checked) // importing previously validated MDMi parameters into the MDMed parameter grid
+  if (Main_Form->MDMi_menu->Checked) // importing previously validated MDMi parameters into the MDMed parameter grid
   {
 	TsimMin_Edit->Text = MDMi->TsimMin_Edit->Text;
 	TsimMax_Edit->Text = MDMi->TsimMax_Edit->Text;
@@ -91,7 +91,7 @@ void __fastcall TMDMed::initChnlsParamGrid()
 	  ChnlParamGrid->Cells[3][row] = MDMi->ChnlParamGrid->Cells[3][row]; // s
 	}
   }
-  else if (Main_Form->SFDMmenu->Checked)
+  else if (Main_Form->MDP_SFDM_menu->Checked)
   {
 	TsimMin_Edit->Text = MDP_SFDM->TsimMin_Edit->Text;
 	TsimMax_Edit->Text = MDP_SFDM->TsimMax_Edit->Text;
@@ -109,7 +109,7 @@ void __fastcall TMDMed::initChnlsParamGrid()
 	  ChnlParamGrid->Cells[3][row] = MDP_SFDM->ChnlParamGrid->Cells[4][row]; // s
 	}
   }
-  else if (Main_Form->TwoRNEmenu->Checked)
+  else if (Main_Form->MDP_2RNE_menu->Checked)
   {
 	TsimMin_Edit->Text = MDP_2RNE->TsimMin_Edit->Text;
 	TsimMax_Edit->Text = MDP_2RNE->TsimMax_Edit->Text;
@@ -233,10 +233,10 @@ void __fastcall TMDMed::Ok_ButtonClick(TObject *Sender)
 	  addChnl(vectFHSG);
 	  if (row < ChnlParamGrid->RowCount-1) modelInputFile << endl << endl;
 	}
-	Main_Form->ADEiMenu->Checked = false;
-	Main_Form->ADEniMenu->Checked = true;
-	Main_Form->SFDMmenu->Checked = false;
-	Main_Form->TwoRNEmenu->Checked = false;
+	Main_Form->MDMi_menu->Checked = false;
+	Main_Form->MDMed_menu->Checked = true;
+	Main_Form->MDP_SFDM_menu->Checked = false;
+	Main_Form->MDP_2RNE_menu->Checked = false;
 	Main_Form->BTCcalcMenu->Enabled = true;
 	Hide();
 	Main_Form->notifyChanges();

@@ -12,7 +12,7 @@ object TCobs_Form: TTCobs_Form
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesigned
+  Position = poMainFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
@@ -132,7 +132,7 @@ object TCobs_Form: TTCobs_Form
     Top = 148
     Width = 75
     Height = 25
-    Caption = 'Filters'
+    Caption = 'Filter'
     TabOrder = 11
     OnClick = Filters_ButtonClick
   end
