@@ -28,8 +28,6 @@ bool __fastcall TPestGeneral::checkSVDOption() const {return m_SVD_Option;}
 bool __fastcall TPestGeneral::checkTikRegOption() const {return m_TikReg_Option;}
 int __fastcall TPestGeneral::getTikRegType() const {return m_TikReg_Type;}
 double __fastcall TPestGeneral::getPHIMLIM() const {return m_PHIMLIM;}
-double __fastcall TPestGeneral::getPHIMACCEPT() const {return m_PHIMACCEPT;}
-int __fastcall TPestGeneral::getIREGADJ() const {return m_IREGADJ;}
 int __fastcall TPestGeneral::getNrandSampl() const {return m_NrandSampl;}
 bool __fastcall TPestGeneral::checkUserApprovalFlag() const {return m_USER_APPROVAL_FLAG;}
 
@@ -46,8 +44,6 @@ void __fastcall TPestGeneral::setNPHINORED(int nphinored) {m_NPHINORED = nphinor
 void __fastcall TPestGeneral::setTikRegOption(bool tikRegOption) {m_TikReg_Option = tikRegOption;}
 void __fastcall TPestGeneral::setTikRegType(int TikRegType) {m_TikReg_Type = TikRegType;}
 void __fastcall TPestGeneral::setPHIMLIM(double phimlim) {m_PHIMLIM = phimlim;}
-void __fastcall TPestGeneral::setPHIMACCEPT(double phimaccept) {m_PHIMACCEPT = phimaccept;}
-void __fastcall TPestGeneral::setIREGADJ(int iregadj) {m_IREGADJ = iregadj;}
 void __fastcall TPestGeneral::setNrandSampl(int nrandsampl) {m_NrandSampl = nrandsampl;}
 void __fastcall TPestGeneral::setUserApprovalFlag(bool userApprovalFlag) {m_USER_APPROVAL_FLAG = userApprovalFlag;}
 //---------------------------------------------------------------------------
@@ -67,9 +63,7 @@ void __fastcall TPestGeneral::FormCreate(TObject *Sender)
   m_TikReg_Option = true;
   m_TikReg_Type = 1;
   m_PHIMLIM = 1.0E-10;
-  m_PHIMACCEPT = 1.0;
-  m_IREGADJ = 1;
-  m_NrandSampl = 500;  
+  m_NrandSampl = 500;
 }
 //---------------------------------------------------------------------------
 void __fastcall TPestGeneral::SVD_CheckBoxClick(TObject *Sender)
@@ -92,10 +86,6 @@ void __fastcall TPestGeneral::TikReg_CheckBoxClick(TObject *Sender)
 	TikRegType_CBox->Enabled = true;
 	PHIMLIM_Label->Enabled = true;
 	PHIMLIM_Edit->Enabled = true;
-	PHIMACCEPT_Label->Enabled = true;
-	PHIMACCEPT_Edit->Enabled = true;
-	IREGADJ_Label->Enabled = true;
-	IREGADJ_Edit->Enabled = true;
   }
   else
   {
@@ -103,10 +93,6 @@ void __fastcall TPestGeneral::TikReg_CheckBoxClick(TObject *Sender)
 	TikRegType_CBox->Enabled = false;
 	PHIMLIM_Label->Enabled = false;
 	PHIMLIM_Edit->Enabled = false;
-	PHIMACCEPT_Label->Enabled = false;
-	PHIMACCEPT_Edit->Enabled = false;
-	IREGADJ_Label->Enabled = false;
-	IREGADJ_Edit->Enabled = false;
   }
 }
 //---------------------------------------------------------------------------
@@ -126,8 +112,6 @@ void __fastcall TPestGeneral::savePestOptions()
   if (TikRegType_CBox->ItemIndex == 0) m_TikReg_Type = 1;
   else m_TikReg_Type = 2;
   m_PHIMLIM = PHIMLIM_Edit->Text.ToDouble();
-  m_PHIMACCEPT = PHIMACCEPT_Edit->Text.ToDouble();
-  m_IREGADJ = IREGADJ_Edit->Text.ToInt();
   m_NrandSampl = nRandSampl_Edit->Text.ToInt();
 }
 //---------------------------------------------------------------------------
@@ -166,10 +150,6 @@ void __fastcall TPestGeneral::BackToSavedPestOptions()
 	TikRegType_CBox->Enabled = true;
 	PHIMLIM_Label->Enabled = true;
 	PHIMLIM_Edit->Enabled = true;
-	PHIMACCEPT_Label->Enabled = true;
-	PHIMACCEPT_Edit->Enabled = true;
-	IREGADJ_Label->Enabled = true;
-	IREGADJ_Edit->Enabled = true;
   }
   else
   {
@@ -177,17 +157,10 @@ void __fastcall TPestGeneral::BackToSavedPestOptions()
 	TikRegType_CBox->Enabled = false;
 	PHIMLIM_Label->Enabled = false;
 	PHIMLIM_Edit->Enabled = false;
-	PHIMACCEPT_Label->Enabled = false;
-	PHIMACCEPT_Edit->Enabled = false;
-	IREGADJ_Label->Enabled = false;
-	IREGADJ_Edit->Enabled = false;
   }
   if (m_TikReg_Type == 2) TikRegType_CBox->ItemIndex = 1;
   else TikRegType_CBox->ItemIndex = 0;
   PHIMLIM_Edit->Text = m_PHIMLIM;
-  PHIMACCEPT_Edit->Text = m_PHIMACCEPT;
-  IREGADJ_Edit->Text = m_IREGADJ;
-  nRandSampl_Edit->Text = m_NrandSampl;
 }
 //---------------------------------------------------------------------------
 void __fastcall TPestGeneral::Cancel_ButtonClick(TObject *Sender)

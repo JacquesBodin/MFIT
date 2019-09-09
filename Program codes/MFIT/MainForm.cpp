@@ -764,8 +764,6 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 		mfiFile << PestGeneral->checkTikRegOption() << endl;
 		mfiFile << PestGeneral->getTikRegType() << endl;
 		mfiFile << PestGeneral->getPHIMLIM() << endl;
-		mfiFile << PestGeneral->getPHIMACCEPT() << endl;
-		mfiFile << PestGeneral->getIREGADJ() << endl;
 		mfiFile << PestGeneral->getNrandSampl() << endl;
 	  }
 
@@ -1185,10 +1183,6 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 		  PestGeneral->TikRegType_CBox->Enabled = true;
 		  PestGeneral->PHIMLIM_Label->Enabled = true;
 		  PestGeneral->PHIMLIM_Edit->Enabled = true;
-		  PestGeneral->PHIMACCEPT_Label->Enabled = true;
-		  PestGeneral->PHIMACCEPT_Edit->Enabled = true;
-		  PestGeneral->IREGADJ_Label->Enabled = true;
-		  PestGeneral->IREGADJ_Edit->Enabled = true;
 		}
 		else
 		{
@@ -1196,10 +1190,6 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 		  PestGeneral->TikRegType_CBox->Enabled = false;
 		  PestGeneral->PHIMLIM_Label->Enabled = false;
 		  PestGeneral->PHIMLIM_Edit->Enabled = false;
-		  PestGeneral->PHIMACCEPT_Label->Enabled = false;
-		  PestGeneral->PHIMACCEPT_Edit->Enabled = false;
-		  PestGeneral->IREGADJ_Label->Enabled = false;
-		  PestGeneral->IREGADJ_Edit->Enabled = false;
 		}
 		int tikRegType;
 		mfiFile >> tikRegType;
@@ -1210,14 +1200,6 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 		mfiFile >> phimlim;
 		PestGeneral->setPHIMLIM(phimlim);
 		PestGeneral->PHIMLIM_Edit->Text = phimlim;
-		double phimaccept;
-		mfiFile >> phimaccept;
-		PestGeneral->setPHIMACCEPT(phimaccept);
-		PestGeneral->PHIMACCEPT_Edit->Text = phimaccept;
-		int iregadj;
-		mfiFile >> iregadj;
-		PestGeneral->setIREGADJ(iregadj);
-		PestGeneral->IREGADJ_Edit->Text = iregadj;
 		int nRandSampl;
 		mfiFile >> nRandSampl;
 		PestGeneral->setNrandSampl(nRandSampl);

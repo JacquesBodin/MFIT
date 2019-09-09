@@ -680,12 +680,12 @@ void __fastcall TPestADEniAutoChnls::newPestControlFile(int n, int idRemovedChnl
 	//============= Regularisation Section ============
 	if (PESTMODE == "regularisation")
 	{
+	  double phimlim = PestGeneral->getPHIMLIM();
+	  double phimaccept = 1.05*phimlim;
 	  pstFile << "* regularisation" << endl;
-	  pstFile << PestGeneral->getPHIMLIM() << "  ";
-	  pstFile << PestGeneral->getPHIMACCEPT() << endl;
+	  pstFile << phimlim << "  " << phimaccept << endl; // PHIMLIM, PHIMACCEPT
 	  pstFile << "1.0  1.0E-15  1.0E+15" << endl; //WFINIT, WFMIN, WFMAX
-	  pstFile << "1.3  2.0E-3  "; // WFFAC, WFTOL
-	  pstFile << PestGeneral->getIREGADJ() << endl;
+	  pstFile << "1.3  2.0E-3  1" << endl; // WFFAC, WFTOL, IREGADJ
 	}
   }
 }

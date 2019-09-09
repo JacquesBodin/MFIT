@@ -25,12 +25,8 @@ __published:	// Composants gérés par l'EDI
 	TCheckBox *EXTDRV_CheckBox;
 	TTabSheet *TabSheet2;
 	TLabel *PHIMLIM_Label;
-	TLabel *PHIMACCEPT_Label;
-	TLabel *IREGADJ_Label;
 	TLabel *TikRegType_Label;
 	TEdit *PHIMLIM_Edit;
-	TEdit *PHIMACCEPT_Edit;
-	TEdit *IREGADJ_Edit;
 	TComboBox *TikRegType_CBox;
 	TCheckBox *TikReg_CheckBox;
 	TTabSheet *TabSheet3;
@@ -68,8 +64,7 @@ private:	// Déclarations utilisateur
 	bool m_SVD_Option;
 	bool m_TikReg_Option;
 	int m_TikReg_Type;
-	double m_PHIMLIM, m_PHIMACCEPT;
-	int m_IREGADJ;
+	double m_PHIMLIM;
 	int m_NrandSampl;
 	//------------------ Méthodes privées ------------------------------------
 	void __fastcall BackToSavedPestOptions();
@@ -90,8 +85,6 @@ public:		// Déclarations utilisateur
 	bool __fastcall checkTikRegOption() const;
 	int __fastcall getTikRegType() const;
 	double __fastcall getPHIMLIM() const;
-	double __fastcall getPHIMACCEPT() const;
-	int __fastcall getIREGADJ() const;
 	int __fastcall getNrandSampl() const;
 	bool __fastcall checkUserApprovalFlag() const;
 	void __fastcall setRLAMFAC(double rlamfac);
@@ -107,9 +100,7 @@ public:		// Déclarations utilisateur
 	void __fastcall setTikRegOption(bool tikRegOption);
 	void __fastcall setTikRegType(int tikRegType);
 	void __fastcall setPHIMLIM(double phimlim);
-	void __fastcall setPHIMACCEPT(double phimaccept);
-	void __fastcall setIREGADJ(int iregadj);
-    void __fastcall setNrandSampl(int nrandsampl);
+	void __fastcall setNrandSampl(int nrandsampl);
 	void __fastcall setUserApprovalFlag(bool userApprovalFlag);
 	void __fastcall savePestOptions();
     void __fastcall runPest();

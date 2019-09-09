@@ -110,22 +110,6 @@ object PestGeneral: TPestGeneral
         Caption = 'Upper Limit of Measurement Objective Function (PHIMLIM)'
         Enabled = False
       end
-      object PHIMACCEPT_Label: TLabel
-        Left = 16
-        Top = 99
-        Width = 289
-        Height = 13
-        Caption = 'Acceptable Measurement Objective Function (PHIMACCEPT)'
-        Enabled = False
-      end
-      object IREGADJ_Label: TLabel
-        Left = 16
-        Top = 126
-        Width = 251
-        Height = 13
-        Caption = 'Intergroup Regularization (IREGADJ) Option (1 to 5)'
-        Enabled = False
-      end
       object TikRegType_Label: TLabel
         Left = 16
         Top = 45
@@ -135,31 +119,13 @@ object PestGeneral: TPestGeneral
         Enabled = False
       end
       object PHIMLIM_Edit: TEdit
-        Left = 333
+        Left = 327
         Top = 69
         Width = 57
         Height = 21
         Enabled = False
         TabOrder = 0
         Text = '1.0E-10'
-      end
-      object PHIMACCEPT_Edit: TEdit
-        Left = 333
-        Top = 96
-        Width = 57
-        Height = 21
-        Enabled = False
-        TabOrder = 1
-        Text = '1.05E-10'
-      end
-      object IREGADJ_Edit: TEdit
-        Left = 333
-        Top = 123
-        Width = 57
-        Height = 21
-        Enabled = False
-        TabOrder = 2
-        Text = '1'
       end
       object TikRegType_CBox: TComboBox
         Left = 133
@@ -168,7 +134,7 @@ object PestGeneral: TPestGeneral
         Height = 21
         Enabled = False
         ItemIndex = 0
-        TabOrder = 3
+        TabOrder = 1
         Text = 'Preferred Homogeneity'
         Items.Strings = (
           'Preferred Homogeneity'
@@ -180,7 +146,7 @@ object PestGeneral: TPestGeneral
         Width = 166
         Height = 17
         Caption = 'Use Tikhonov Regularization'
-        TabOrder = 4
+        TabOrder = 2
         OnClick = TikReg_CheckBoxClick
       end
     end
