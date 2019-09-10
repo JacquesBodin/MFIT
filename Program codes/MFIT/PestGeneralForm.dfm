@@ -52,51 +52,25 @@ object PestGeneral: TPestGeneral
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Basic Options'
-      object Label2: TLabel
-        Left = 16
-        Top = 18
-        Width = 187
-        Height = 13
-        Caption = 'Lambda Adjustment Factor (RLAMFAC)'
-      end
-      object RLAMFAC_Edit: TEdit
-        Left = 240
-        Top = 15
-        Width = 57
-        Height = 21
-        TabOrder = 0
-        Text = '2.0'
-      end
-      object BOUNDSCALE_CheckBox: TCheckBox
-        Left = 16
-        Top = 103
-        Width = 254
-        Height = 17
-        Caption = 'Use Bound scaling of parameters'
-        Checked = True
-        State = cbChecked
-        TabOrder = 1
-      end
       object SVD_CheckBox: TCheckBox
         Left = 16
-        Top = 73
+        Top = 44
         Width = 254
         Height = 17
         Caption = 'Use Singular Value Decomposition (SVD)'
         Checked = True
         State = cbChecked
-        TabOrder = 2
-        OnClick = SVD_CheckBoxClick
+        TabOrder = 0
       end
       object EXTDRV_CheckBox: TCheckBox
         Left = 16
-        Top = 45
+        Top = 16
         Width = 208
         Height = 17
         Caption = 'Use External Analytical Derivatives'
         Checked = True
         State = cbChecked
-        TabOrder = 3
+        TabOrder = 1
       end
     end
     object TabSheet2: TTabSheet

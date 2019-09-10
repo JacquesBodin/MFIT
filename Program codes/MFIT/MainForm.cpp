@@ -751,9 +751,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 	  mfiFile << PestGeneral->checkUserApprovalFlag() << endl;
 	  if (PestGeneral->checkUserApprovalFlag())
 	  {
-		mfiFile << PestGeneral->getRLAMFAC() << endl;
 		mfiFile << PestGeneral->checkEXTDRVOption() << endl;
-		mfiFile << PestGeneral->checkBOUNDSCALEOption() << endl;
 		mfiFile << PestGeneral->checkSVDOption() << endl;
 		mfiFile << PestGeneral->getNOPTMAX() << endl;
 		mfiFile << PestGeneral->getPHIREDSTP() << endl;
@@ -1125,30 +1123,14 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  if (pestUserApprovalFlag)
 	  {
 		PestGeneral->setUserApprovalFlag(true);
-		double rlamfac;
-		mfiFile >> rlamfac;
-		PestGeneral->setRLAMFAC(rlamfac);
-		PestGeneral->RLAMFAC_Edit->Text = rlamfac;
 		bool extDrvOption;
 		mfiFile >> extDrvOption;
 		PestGeneral->setEXTDRVOption(extDrvOption);
 		PestGeneral->EXTDRV_CheckBox->Checked = extDrvOption;
-		bool boundscaleOption;
-		mfiFile >> boundscaleOption;
-		PestGeneral->setBOUNDSCALEOption(boundscaleOption);
-		PestGeneral->BOUNDSCALE_CheckBox->Checked = boundscaleOption;
 		bool svdOption;
 		mfiFile >> svdOption;
 		PestGeneral->setSVDOption(svdOption);
 		PestGeneral->SVD_CheckBox->Checked = svdOption;
-		if (PestGeneral->SVD_CheckBox->Checked)
-		{
-		  PestGeneral->BOUNDSCALE_CheckBox->Enabled = true;
-		}
-		else
-		{
-		  PestGeneral->BOUNDSCALE_CheckBox->Enabled = false;
-		}
 		int noptmax;
 		mfiFile >> noptmax;
 		PestGeneral->setNOPTMAX(noptmax);

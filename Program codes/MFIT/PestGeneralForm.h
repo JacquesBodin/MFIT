@@ -18,9 +18,6 @@ __published:	// Composants gérés par l'EDI
 	TLabel *Label7;
 	TPageControl *PageControl1;
 	TTabSheet *TabSheet1;
-	TLabel *Label2;
-	TEdit *RLAMFAC_Edit;
-	TCheckBox *BOUNDSCALE_CheckBox;
 	TCheckBox *SVD_CheckBox;
 	TCheckBox *EXTDRV_CheckBox;
 	TTabSheet *TabSheet2;
@@ -48,16 +45,13 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall Cancel_ButtonClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall OK_ButtonClick(TObject *Sender);
-	void __fastcall SVD_CheckBoxClick(TObject *Sender);
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall TikReg_CheckBoxClick(TObject *Sender);
 
 private:	// Déclarations utilisateur
 	//---------------------- Attributs privés --------------------------------
 	bool m_USER_APPROVAL_FLAG;
-	double m_RLAMFAC;
 	bool m_EXTDRV_Option;
-	bool m_BOUNDSCALE_Option;
 	int m_NOPTMAX;
 	double m_PHIREDSTP, m_RELPARSTP;
 	int m_NPHISTP, m_NRELPAR, m_NPHINORED;
@@ -72,9 +66,7 @@ private:	// Déclarations utilisateur
 
 public:		// Déclarations utilisateur
 	//------------------ Méthodes publiques ----------------------------------
-	double __fastcall getRLAMFAC() const;
 	bool __fastcall checkEXTDRVOption() const;
-	bool __fastcall checkBOUNDSCALEOption() const;
 	int __fastcall getNOPTMAX() const;
 	double __fastcall getPHIREDSTP() const;
 	double __fastcall getRELPARSTP() const;
@@ -87,9 +79,7 @@ public:		// Déclarations utilisateur
 	double __fastcall getPHIMLIM() const;
 	int __fastcall getNrandSampl() const;
 	bool __fastcall checkUserApprovalFlag() const;
-	void __fastcall setRLAMFAC(double rlamfac);
 	void __fastcall setEXTDRVOption(bool extDrvOption);
-	void __fastcall setBOUNDSCALEOption(bool boundscaleOption);
 	void __fastcall setNOPTMAX(int noptmax);
 	void __fastcall setPHIREDSTP(double phiredstp);
 	void __fastcall setRELPARSTP(double relparstp);

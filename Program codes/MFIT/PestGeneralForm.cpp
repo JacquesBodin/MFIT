@@ -15,9 +15,7 @@ __fastcall TPestGeneral::TPestGeneral(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
-double __fastcall TPestGeneral::getRLAMFAC() const {return m_RLAMFAC;}
 bool __fastcall TPestGeneral::checkEXTDRVOption() const {return m_EXTDRV_Option;}
-bool __fastcall TPestGeneral::checkBOUNDSCALEOption() const {return m_BOUNDSCALE_Option;}
 int __fastcall TPestGeneral::getNOPTMAX() const {return m_NOPTMAX;}
 double __fastcall TPestGeneral::getPHIREDSTP() const {return m_PHIREDSTP;}
 double __fastcall TPestGeneral::getRELPARSTP() const {return m_RELPARSTP;}
@@ -31,9 +29,7 @@ double __fastcall TPestGeneral::getPHIMLIM() const {return m_PHIMLIM;}
 int __fastcall TPestGeneral::getNrandSampl() const {return m_NrandSampl;}
 bool __fastcall TPestGeneral::checkUserApprovalFlag() const {return m_USER_APPROVAL_FLAG;}
 
-void __fastcall TPestGeneral::setRLAMFAC(double rlamfac) {m_RLAMFAC = rlamfac;}
 void __fastcall TPestGeneral::setEXTDRVOption(bool extDrvOption) {m_EXTDRV_Option = extDrvOption;}
-void __fastcall TPestGeneral::setBOUNDSCALEOption(bool boundscaleOption) {m_BOUNDSCALE_Option = boundscaleOption;}
 void __fastcall TPestGeneral::setSVDOption(bool svdOption) {m_SVD_Option = svdOption;}
 void __fastcall TPestGeneral::setNOPTMAX(int noptmax) {m_NOPTMAX = noptmax;}
 void __fastcall TPestGeneral::setPHIREDSTP(double phiredstp) {m_PHIREDSTP = phiredstp;}
@@ -50,7 +46,6 @@ void __fastcall TPestGeneral::setUserApprovalFlag(bool userApprovalFlag) {m_USER
 void __fastcall TPestGeneral::FormCreate(TObject *Sender)
 {
   m_USER_APPROVAL_FLAG = false; // set to "true" when the user clicks on the "Ok" button
-  m_RLAMFAC = 2.0;
   m_EXTDRV_Option = true;
   m_SVD_Option = true;
   m_NOPTMAX = 100;
@@ -59,23 +54,10 @@ void __fastcall TPestGeneral::FormCreate(TObject *Sender)
   m_NPHINORED = 4;
   m_RELPARSTP = 1.0E-4;
   m_NRELPAR = 5;
-  m_BOUNDSCALE_Option = true;
   m_TikReg_Option = true;
   m_TikReg_Type = 1;
   m_PHIMLIM = 1.0E-10;
   m_NrandSampl = 500;
-}
-//---------------------------------------------------------------------------
-void __fastcall TPestGeneral::SVD_CheckBoxClick(TObject *Sender)
-{
-  if (SVD_CheckBox->Checked)
-  {
-	BOUNDSCALE_CheckBox->Enabled = true;
-  }
-  else
-  {
-	BOUNDSCALE_CheckBox->Enabled = false;
-  }
 }
 //---------------------------------------------------------------------------
 void __fastcall TPestGeneral::TikReg_CheckBoxClick(TObject *Sender)
@@ -98,9 +80,7 @@ void __fastcall TPestGeneral::TikReg_CheckBoxClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPestGeneral::savePestOptions()
 {
-  m_RLAMFAC = RLAMFAC_Edit->Text.ToDouble();
   m_EXTDRV_Option = EXTDRV_CheckBox->Checked;
-  m_BOUNDSCALE_Option = BOUNDSCALE_CheckBox->Checked;
   m_SVD_Option = SVD_CheckBox->Checked;
   m_NOPTMAX = NOPTMAX_Edit->Text.ToInt();
   m_PHIREDSTP = PHIREDSTP_Edit->Text.ToDouble();
@@ -125,18 +105,8 @@ void __fastcall TPestGeneral::OK_ButtonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPestGeneral::BackToSavedPestOptions()
 {
-  RLAMFAC_Edit->Text = m_RLAMFAC;
   EXTDRV_CheckBox->Checked = m_EXTDRV_Option;
-  BOUNDSCALE_CheckBox->Checked = m_BOUNDSCALE_Option;
   SVD_CheckBox->Checked = m_SVD_Option;
-  if (SVD_CheckBox->Checked)
-  {
-	BOUNDSCALE_CheckBox->Enabled = true;
-  }
-  else
-  {
-	BOUNDSCALE_CheckBox->Enabled = false;
-  }
   NOPTMAX_Edit->Text = m_NOPTMAX;
   PHIREDSTP_Edit->Text = m_PHIREDSTP;
   NPHISTP_Edit->Text = m_NPHISTP;

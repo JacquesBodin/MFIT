@@ -470,13 +470,11 @@ void __fastcall TPestADEniUserChnls::newPestControlFile()
   pstFile << RSTFLE << " " << PESTMODE << endl;
   pstFile << NPAR << "  " << noTimeSteps << "  " << NPARGP << "  " << NPRIOR << "  " << NOBSGP << endl;
   pstFile << NTPLFLE << "  " << NINSFLE << "  " << PRECIS << "  " << DPOINT << "  " << NUMCOM << "  " << JACFILE << "  " << MESSFILE << endl;
-  pstFile << "10.0" << "  "; // RLAMBDA1
-  pstFile << PestGeneral->getRLAMFAC() << "  ";
-  pstFile << "0.3  0.01  8"; // PHIRATSUF, PHIREDLAM, NUMLAM
+  pstFile << "10.0  2  0.3  0.01  8"; // RLAMBDA1, RLAMFAC, PHIRATSUF, PHIREDLAM, NUMLAM
   pstFile << "  lamforgive  derforgive" << endl;
   pstFile << "10.0  10.0  0.001" << endl; // RELPARMAX, FACPARMAX, FACORIG
   pstFile << "0.1  1"; // PHIREDSWH, NOPTSWITCH
-  if (PestGeneral->checkBOUNDSCALEOption() && PestGeneral->checkSVDOption()) pstFile << "  boundscale";
+  if (PestGeneral->checkSVDOption()) pstFile << "  boundscale"; // BOUNDSCALE
   pstFile << endl;
   pstFile << PestGeneral->getNOPTMAX() << "  ";
   pstFile << PestGeneral->getPHIREDSTP() << "  ";
