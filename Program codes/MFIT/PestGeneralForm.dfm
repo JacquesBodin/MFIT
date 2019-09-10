@@ -42,20 +42,20 @@ object PestGeneral: TPestGeneral
     Height = 65
     Caption = ' Post calibration uncertainty analysis '
     TabOrder = 2
-    object Label12: TLabel
+    object Label1: TLabel
       Left = 31
       Top = 28
-      Width = 215
+      Width = 141
       Height = 13
-      Caption = 'Maximum Optimization Iterations (NOPTMAX)'
+      Caption = 'Number of random value sets'
     end
-    object NOPTMAX_Edit: TEdit
-      Left = 258
+    object nRandSampl_Edit: TEdit
+      Left = 186
       Top = 25
       Width = 57
       Height = 21
       TabOrder = 0
-      Text = '200'
+      Text = '50'
     end
   end
   object GroupBox2: TGroupBox
@@ -65,20 +65,20 @@ object PestGeneral: TPestGeneral
     Height = 65
     Caption = ' Run Termination '
     TabOrder = 3
-    object Label1: TLabel
+    object Label12: TLabel
       Left = 31
       Top = 28
-      Width = 141
+      Width = 215
       Height = 13
-      Caption = 'Number of random value sets'
+      Caption = 'Maximum Optimization Iterations (NOPTMAX)'
     end
-    object nRandSampl_Edit: TEdit
-      Left = 192
+    object NOPTMAX_Edit: TEdit
+      Left = 260
       Top = 25
       Width = 57
       Height = 21
       TabOrder = 0
-      Text = '50'
+      Text = '200'
     end
   end
   object GroupBox3: TGroupBox
@@ -134,7 +134,7 @@ object PestGeneral: TPestGeneral
       OnClick = TikReg_CheckBoxClick
     end
     object TikRegType_CBox: TComboBox
-      Left = 149
+      Left = 143
       Top = 108
       Width = 145
       Height = 21
@@ -147,7 +147,7 @@ object PestGeneral: TPestGeneral
         'Preferred Value')
     end
     object PHIMLIM_Edit: TEdit
-      Left = 337
+      Left = 329
       Top = 137
       Width = 57
       Height = 21

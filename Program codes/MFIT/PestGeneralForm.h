@@ -16,11 +16,7 @@ __published:	// Composants gérés par l'EDI
 	TButton *OK_Button;
 	TButton *Cancel_Button;
 	TGroupBox *GroupBox1;
-	TLabel *Label12;
-	TEdit *NOPTMAX_Edit;
 	TGroupBox *GroupBox2;
-	TLabel *Label1;
-	TEdit *nRandSampl_Edit;
 	TGroupBox *GroupBox3;
 	TCheckBox *EXTDRV_CheckBox;
 	TCheckBox *SVD_CheckBox;
@@ -29,6 +25,10 @@ __published:	// Composants gérés par l'EDI
 	TComboBox *TikRegType_CBox;
 	TLabel *PHIMLIM_Label;
 	TEdit *PHIMLIM_Edit;
+	TLabel *Label12;
+	TEdit *NOPTMAX_Edit;
+	TLabel *Label1;
+	TEdit *nRandSampl_Edit;
 	void __fastcall Cancel_ButtonClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall OK_ButtonClick(TObject *Sender);
