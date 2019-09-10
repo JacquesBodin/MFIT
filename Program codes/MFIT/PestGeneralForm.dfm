@@ -4,7 +4,7 @@ object PestGeneral: TPestGeneral
   BorderStyle = bsDialog
   Caption = 'Pest Options'
   ClientHeight = 258
-  ClientWidth = 485
+  ClientWidth = 428
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,7 +25,7 @@ object PestGeneral: TPestGeneral
     Caption = 'Number of Lambdas (NUMLAM)'
   end
   object OK_Button: TButton
-    Left = 274
+    Left = 243
     Top = 225
     Width = 75
     Height = 25
@@ -34,7 +34,7 @@ object PestGeneral: TPestGeneral
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 355
+    Left = 326
     Top = 225
     Width = 75
     Height = 25
@@ -45,13 +45,33 @@ object PestGeneral: TPestGeneral
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 485
+    Width = 428
     Height = 217
     ActivePage = TabSheet1
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 485
     object TabSheet1: TTabSheet
       Caption = 'Basic Options'
+      ExplicitLeft = -60
+      ExplicitTop = 132
+      ExplicitWidth = 477
+      object TikRegType_Label: TLabel
+        Left = 32
+        Top = 100
+        Width = 95
+        Height = 13
+        Caption = 'Regularization Type'
+        Enabled = False
+      end
+      object PHIMLIM_Label: TLabel
+        Left = 32
+        Top = 128
+        Width = 280
+        Height = 13
+        Caption = 'Upper Limit of Measurement Objective Function (PHIMLIM)'
+        Enabled = False
+      end
       object SVD_CheckBox: TCheckBox
         Left = 16
         Top = 44
@@ -72,61 +92,42 @@ object PestGeneral: TPestGeneral
         State = cbChecked
         TabOrder = 1
       end
-    end
-    object TabSheet2: TTabSheet
-      Caption = 'Tikhonov Regularization'
-      ImageIndex = 1
-      object PHIMLIM_Label: TLabel
-        Left = 16
-        Top = 72
-        Width = 280
-        Height = 13
-        Caption = 'Upper Limit of Measurement Objective Function (PHIMLIM)'
-        Enabled = False
-      end
-      object TikRegType_Label: TLabel
-        Left = 16
-        Top = 45
-        Width = 95
-        Height = 13
-        Caption = 'Regularization Type'
-        Enabled = False
-      end
-      object PHIMLIM_Edit: TEdit
-        Left = 327
-        Top = 69
-        Width = 57
-        Height = 21
-        Enabled = False
-        TabOrder = 0
-        Text = '1.0E-10'
-      end
-      object TikRegType_CBox: TComboBox
-        Left = 133
-        Top = 42
-        Width = 145
-        Height = 21
-        Enabled = False
-        ItemIndex = 0
-        TabOrder = 1
-        Text = 'Preferred Homogeneity'
-        Items.Strings = (
-          'Preferred Homogeneity'
-          'Preferred Value')
-      end
       object TikReg_CheckBox: TCheckBox
         Left = 16
-        Top = 16
+        Top = 72
         Width = 166
         Height = 17
         Caption = 'Use Tikhonov Regularization'
         TabOrder = 2
         OnClick = TikReg_CheckBoxClick
       end
+      object TikRegType_CBox: TComboBox
+        Left = 149
+        Top = 97
+        Width = 145
+        Height = 21
+        Enabled = False
+        ItemIndex = 0
+        TabOrder = 3
+        Text = 'Preferred Homogeneity'
+        Items.Strings = (
+          'Preferred Homogeneity'
+          'Preferred Value')
+      end
+      object PHIMLIM_Edit: TEdit
+        Left = 337
+        Top = 125
+        Width = 57
+        Height = 21
+        Enabled = False
+        TabOrder = 4
+        Text = '1.0E-10'
+      end
     end
     object TabSheet3: TTabSheet
       Caption = 'Run Termination'
       ImageIndex = 2
+      ExplicitWidth = 477
       object Label12: TLabel
         Left = 11
         Top = 18
@@ -221,6 +222,7 @@ object PestGeneral: TPestGeneral
     object TabSheet4: TTabSheet
       Caption = 'Post calibration uncertainty analysis'
       ImageIndex = 3
+      ExplicitWidth = 477
       object Label1: TLabel
         Left = 16
         Top = 18

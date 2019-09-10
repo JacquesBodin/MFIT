@@ -18,14 +18,13 @@ __published:	// Composants gérés par l'EDI
 	TLabel *Label7;
 	TPageControl *PageControl1;
 	TTabSheet *TabSheet1;
+	TLabel *TikRegType_Label;
+	TLabel *PHIMLIM_Label;
 	TCheckBox *SVD_CheckBox;
 	TCheckBox *EXTDRV_CheckBox;
-	TTabSheet *TabSheet2;
-	TLabel *PHIMLIM_Label;
-	TLabel *TikRegType_Label;
-	TEdit *PHIMLIM_Edit;
-	TComboBox *TikRegType_CBox;
 	TCheckBox *TikReg_CheckBox;
+	TComboBox *TikRegType_CBox;
+	TEdit *PHIMLIM_Edit;
 	TTabSheet *TabSheet3;
 	TLabel *Label12;
 	TLabel *Label13;
@@ -40,8 +39,8 @@ __published:	// Composants gérés par l'EDI
 	TEdit *NRELPAR_Edit;
 	TEdit *NPHINORED_Edit;
 	TTabSheet *TabSheet4;
-	TEdit *nRandSampl_Edit;
 	TLabel *Label1;
+	TEdit *nRandSampl_Edit;
 	void __fastcall Cancel_ButtonClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall OK_ButtonClick(TObject *Sender);
