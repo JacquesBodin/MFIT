@@ -477,11 +477,7 @@ void __fastcall TPestSFDMuserChnls::newPestControlFile()
   if (PestGeneral->checkSVDOption()) pstFile << "  boundscale"; // BOUNDSCALE
   pstFile << endl;
   pstFile << PestGeneral->getNOPTMAX() << "  ";
-  pstFile << PestGeneral->getPHIREDSTP() << "  ";
-  pstFile << PestGeneral->getNPHISTP() << "  ";
-  pstFile << PestGeneral->getNPHINORED() << "  ";
-  pstFile << PestGeneral->getRELPARSTP() << "  ";
-  pstFile << PestGeneral->getNRELPAR() << endl;
+  pstFile << "0.005  4  4  0.005  4" << endl; // PHIREDSTP, NPHISTP, NPHINORED, RELPARSTP, NRELPAR
   pstFile << "0  0  0"; // ICOV, ICOR, and IEIG
   pstFile << "  parsaveitn" << endl;
   //============ Singular Value Decomposition Section ============
