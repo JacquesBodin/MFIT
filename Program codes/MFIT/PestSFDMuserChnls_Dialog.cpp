@@ -30,7 +30,7 @@ void __fastcall TPestSFDMuserChnls::FormCreate(TObject *Sender)
   ParamGrid->Cells[0][0]="Pest Parameter No.";
   ParamGrid->Cells[1][0]="Type";
   ParamGrid->Cells[2][0]="Channel No.";
-  ParamGrid->Cells[3][0]="Use (No=0/Yes=1)";
+  ParamGrid->Cells[3][0]="Estimate (No=0/Yes=1)";
   ParamGrid->Cells[4][0]="Minimum";
   ParamGrid->Cells[5][0]="Maximum";
   ParamGrid->Cells[6][0]="Transform";
@@ -68,24 +68,24 @@ void __fastcall TPestSFDMuserChnls::resetChnlNo_CBox()
 	for (int i = 1; i <= MDP_SFDM->getN(); i++) ChnlNo_CBox->Items->Add(i);
 }
 //---------------------------------------------------------------------------
-void __fastcall TPestSFDMuserChnls::setPestGridParam(int idPestParam, std::vector<double> vTTUMMT)
-{ //vTTUMMT: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform
-  if (vTTUMMT[0] == -1)
+void __fastcall TPestSFDMuserChnls::setPestGridParam(int idPestParam, std::vector<double> vTCEMMT)
+{ //vTCEMMT: Type, Channel No., Estimate (No=0/Yes=1), Minimum, Maximum, Transform
+  if (vTCEMMT[0] == -1)
   {
 	ParamGrid->Cells[1][idPestParam] = "Total Flowrate";
 	ParamGrid->Cells[2][idPestParam] = "All";
   }
-  else if (vTTUMMT[0] == 0) ParamGrid->Cells[1][idPestParam] = "None";
-  else if (vTTUMMT[0] == 1) ParamGrid->Cells[1][idPestParam] = "Mass";
-  else if (vTTUMMT[0] == 2) ParamGrid->Cells[1][idPestParam] = "Beta Coeff.";
-  else if (vTTUMMT[0] == 3) ParamGrid->Cells[1][idPestParam] = "T0";
-  else if (vTTUMMT[0] == 4) ParamGrid->Cells[1][idPestParam] = "Pe";
-  if (ParamGrid->Cells[1][idPestParam] != "Total Flowrate") ParamGrid->Cells[2][idPestParam] = vTTUMMT[1];
-  ParamGrid->Cells[3][idPestParam] = vTTUMMT[2];
-  ParamGrid->Cells[4][idPestParam] = FloatToStrF(vTTUMMT[3], ffExponent, 3, 2);
-  ParamGrid->Cells[5][idPestParam] = FloatToStrF(vTTUMMT[4], ffExponent, 3, 2);
-  if (vTTUMMT[5] == 0) ParamGrid->Cells[6][idPestParam] = "None";
-  else if (vTTUMMT[5] == 1) ParamGrid->Cells[6][idPestParam] = "Log";
+  else if (vTCEMMT[0] == 0) ParamGrid->Cells[1][idPestParam] = "None";
+  else if (vTCEMMT[0] == 1) ParamGrid->Cells[1][idPestParam] = "Mass";
+  else if (vTCEMMT[0] == 2) ParamGrid->Cells[1][idPestParam] = "Beta Coeff.";
+  else if (vTCEMMT[0] == 3) ParamGrid->Cells[1][idPestParam] = "T0";
+  else if (vTCEMMT[0] == 4) ParamGrid->Cells[1][idPestParam] = "Pe";
+  if (ParamGrid->Cells[1][idPestParam] != "Total Flowrate") ParamGrid->Cells[2][idPestParam] = vTCEMMT[1];
+  ParamGrid->Cells[3][idPestParam] = vTCEMMT[2];
+  ParamGrid->Cells[4][idPestParam] = FloatToStrF(vTCEMMT[3], ffExponent, 3, 2);
+  ParamGrid->Cells[5][idPestParam] = FloatToStrF(vTCEMMT[4], ffExponent, 3, 2);
+  if (vTCEMMT[5] == 0) ParamGrid->Cells[6][idPestParam] = "None";
+  else if (vTCEMMT[5] == 1) ParamGrid->Cells[6][idPestParam] = "Log";
 }
 //---------------------------------------------------------------------------
 void __fastcall TPestSFDMuserChnls::ParamGridClick(TObject *Sender)
@@ -129,7 +129,7 @@ void __fastcall TPestSFDMuserChnls::ParamGridClick(TObject *Sender)
 	}
   }
 
-  if(ParamGrid->Col == 3) // User click in the column "Use (No=0/Yes=1)"
+  if(ParamGrid->Col == 3) // User click in the column "Estimate (No=0/Yes=1)"
   {
 	TRect Recto = ParamGrid->CellRect(ParamGrid->Col, ParamGrid->Row);
 	UseParam_CBox->Top = ParamGrid->Top;
@@ -226,29 +226,29 @@ void __fastcall TPestSFDMuserChnls::OK_ButtonClick(TObject *Sender)
   Main_Form->PestAutoChnls->Checked = false;
   Main_Form->PestCreateDatasetsMenu->Enabled = true;
   m_PestParams.clear();
-  vector<double> vTTUMMT (6,0); // Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0,0]
+  vector<double> vTCEMMT (6,0); // Type, Channel No., Estimate (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0,0]
   for (int row = 1; row < ParamGrid->RowCount; row++)
   {
 	//------------- A different flag for each type of parameter -----------------
-	if (ParamGrid->Cells[1][row] == "None") vTTUMMT[0] = 0;
-	else if (ParamGrid->Cells[1][row] == "Total Flowrate") vTTUMMT[0] = -1;
-	else if (ParamGrid->Cells[1][row] == "Mass") vTTUMMT[0] = 1;
-	else if (ParamGrid->Cells[1][row] == "Beta Coeff.") vTTUMMT[0] = 2;
-	else if (ParamGrid->Cells[1][row] == "T0") vTTUMMT[0] = 3;
-	else if (ParamGrid->Cells[1][row] == "Pe") vTTUMMT[0] = 4;
+	if (ParamGrid->Cells[1][row] == "None") vTCEMMT[0] = 0;
+	else if (ParamGrid->Cells[1][row] == "Total Flowrate") vTCEMMT[0] = -1;
+	else if (ParamGrid->Cells[1][row] == "Mass") vTCEMMT[0] = 1;
+	else if (ParamGrid->Cells[1][row] == "Beta Coeff.") vTCEMMT[0] = 2;
+	else if (ParamGrid->Cells[1][row] == "T0") vTCEMMT[0] = 3;
+	else if (ParamGrid->Cells[1][row] == "Pe") vTCEMMT[0] = 4;
 	//------------------------------ Channel No. --------------------------------
-	if (ParamGrid->Cells[2][row] == "All") vTTUMMT[1] = 0; // (qt parameter)
-	else vTTUMMT[1] = ParamGrid->Cells[2][row].ToInt();
-	//---------------------------- Use (No=0/Yes=1) -----------------------------
-	vTTUMMT[2] = ParamGrid->Cells[3][row].ToInt();
+	if (ParamGrid->Cells[2][row] == "All") vTCEMMT[1] = 0; // (qt parameter)
+	else vTCEMMT[1] = ParamGrid->Cells[2][row].ToInt();
+	//-------------------------- Estimate (No=0/Yes=1) --------------------------
+	vTCEMMT[2] = ParamGrid->Cells[3][row].ToInt();
 	//------------------------------- Min / Max ---------------------------------
-	vTTUMMT[3] = ParamGrid->Cells[4][row].ToDouble();
-	vTTUMMT[4] = ParamGrid->Cells[5][row].ToDouble();
+	vTCEMMT[3] = ParamGrid->Cells[4][row].ToDouble();
+	vTCEMMT[4] = ParamGrid->Cells[5][row].ToDouble();
 	//------------------------------- Transform ---------------------------------
-	if (ParamGrid->Cells[6][row] == "None") vTTUMMT[5] = 0;
-	else if(ParamGrid->Cells[6][row] == "Log") vTTUMMT[5] = 1; // indicates that the optimization must be based on the log of the parameter
+	if (ParamGrid->Cells[6][row] == "None") vTCEMMT[5] = 0;
+	else if(ParamGrid->Cells[6][row] == "Log") vTCEMMT[5] = 1; // indicates that the optimization must be based on the log of the parameter
 	//---------------------------------------------------------------------------
-	m_PestParams.push_back(vTTUMMT);
+	m_PestParams.push_back(vTCEMMT);
   }
   Hide();
   Main_Form->notifyChanges();
@@ -344,7 +344,7 @@ void __fastcall TPestSFDMuserChnls::newPestTplFile()
   }
   else
   {
-	vector< vector<double> > const pestUserChnlParams(getPestParams()); // a series (vector) of TTUMMT values (Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform)
+	vector< vector<double> > const pestUserChnlParams(getPestParams()); // a series (vector) of TCEMMT values (Type, Channel No., Estimate (No=0/Yes=1), Minimum, Maximum, Transform)
 	ofstream tplFile("MFIT.tpl", ios::out | ios::trunc);
 	tplFile << "ptf #" << endl;
 	tplFile << MDP_SFDM->getTsimMin() << endl;
@@ -399,7 +399,7 @@ void __fastcall TPestSFDMuserChnls::newPestTplFile()
 void __fastcall TPestSFDMuserChnls::newPestControlFile()
 {
   int const noTimeSteps = MDP_SFDM->getNoTimeSteps();
-  vector< vector<double> > const pestUserChnlParams(getPestParams()); // a series (vector) of TTUMMT values (Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform)
+  vector< vector<double> > const pestUserChnlParams(getPestParams()); // a series (vector) of TCEMMT values (Type, Channel No., Estimate (No=0/Yes=1), Minimum, Maximum, Transform)
   ofstream pstFile("MFIT.pst", ios::out | ios::trunc);
   pstFile << "pcf" << endl;
   //============ Control Data Section ============

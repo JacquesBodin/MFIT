@@ -4297,11 +4297,11 @@ object Main_Form: TMain_Form
         Caption = 'Parameters'
         Enabled = False
         object PestUserChnls: TMenuItem
-          Caption = 'User defined channels...'
+          Caption = 'User Specified Channels...'
           OnClick = PestUserChnlsClick
         end
         object PestAutoChnls: TMenuItem
-          Caption = 'Automatic multiple channels...'
+          Caption = 'Automatic Multiple Channels...'
           OnClick = PestAutoChnlsClick
         end
       end
@@ -4338,7 +4338,7 @@ object Main_Form: TMain_Form
       end
     end
     object InversionResultsMenu: TMenuItem
-      Caption = 'Inversion results'
+      Caption = 'Inversion Results'
       object OpenPhiN_SplitViewPannel: TMenuItem
         Caption = 'Open Phi(N) Panel'
         OnClick = OpenPhiN_SplitViewPannelClick

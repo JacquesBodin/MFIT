@@ -2,9 +2,9 @@ object PestADEniUserChnls: TPestADEniUserChnls
   Left = 457
   Top = 420
   BorderStyle = bsDialog
-  Caption = 'PEST Parameters'
+  Caption = 'PEST Parameters - User Specified Channels'
   ClientHeight = 296
-  ClientWidth = 797
+  ClientWidth = 933
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,13 +12,13 @@ object PestADEniUserChnls: TPestADEniUserChnls
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesigned
+  Position = poMainFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object OK_Button: TButton
-    Left = 299
+    Left = 363
     Top = 256
     Width = 75
     Height = 25
@@ -27,7 +27,7 @@ object PestADEniUserChnls: TPestADEniUserChnls
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 412
+    Left = 476
     Top = 256
     Width = 75
     Height = 25
@@ -38,10 +38,10 @@ object PestADEniUserChnls: TPestADEniUserChnls
   object ParamGrid: TStringGrid
     Left = 16
     Top = 16
-    Width = 762
+    Width = 902
     Height = 222
     ColCount = 7
-    DefaultColWidth = 105
+    DefaultColWidth = 125
     DefaultRowHeight = 21
     RowCount = 61
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goEditing, goTabs]
@@ -49,14 +49,6 @@ object PestADEniUserChnls: TPestADEniUserChnls
     TabOrder = 2
     OnClick = ParamGridClick
     OnTopLeftChanged = ParamGridTopLeftChanged
-    ColWidths = (
-      105
-      105
-      105
-      105
-      105
-      105
-      105)
     RowHeights = (
       21
       21
@@ -121,8 +113,8 @@ object PestADEniUserChnls: TPestADEniUserChnls
       21)
   end
   object PestParam_CBox: TComboBox
-    Left = 568
-    Top = 240
+    Left = 632
+    Top = 243
     Width = 102
     Height = 21
     TabOrder = 3
@@ -138,8 +130,8 @@ object PestADEniUserChnls: TPestADEniUserChnls
       'Gamma Coeff.')
   end
   object ChnlNo_CBox: TComboBox
-    Left = 568
-    Top = 267
+    Left = 632
+    Top = 270
     Width = 102
     Height = 21
     TabOrder = 4
@@ -150,8 +142,8 @@ object PestADEniUserChnls: TPestADEniUserChnls
       '1')
   end
   object ParTrans_CBox: TComboBox
-    Left = 676
-    Top = 267
+    Left = 740
+    Top = 270
     Width = 102
     Height = 21
     TabOrder = 5
@@ -163,8 +155,8 @@ object PestADEniUserChnls: TPestADEniUserChnls
       'Log')
   end
   object UseParam_CBox: TComboBox
-    Left = 676
-    Top = 240
+    Left = 740
+    Top = 243
     Width = 102
     Height = 21
     TabOrder = 6
@@ -186,7 +178,7 @@ object PestADEniUserChnls: TPestADEniUserChnls
   end
   object OpenDialog1: TOpenDialog
     Filter = 'Comma-delimited File|*.csv|Text File|*.txt'
-    Left = 112
+    Left = 117
     Top = 248
   end
 end

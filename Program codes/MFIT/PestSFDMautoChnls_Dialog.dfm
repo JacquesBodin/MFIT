@@ -2,7 +2,7 @@ object PestSFDMautoChnls: TPestSFDMautoChnls
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Automatic Multiple Path Inversion - PEST Parameters'
+  Caption = 'PEST Parameters - Automatic Multiple Channels'
   ClientHeight = 255
   ClientWidth = 666
   Color = clBtnFace

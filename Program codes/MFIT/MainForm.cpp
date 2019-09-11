@@ -1174,15 +1174,15 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 		if (noPestParameters > 0)
 		{
 		  vector< vector<double> > vectPestParams;
-		  vector<double> vTTUMMT (6,0); // A Pest parameter for "UserChannel" optimization: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0,0]
+		  vector<double> vTCEMMT (6,0); // A Pest parameter for "UserChannel" optimization: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0,0]
 		  for (int idPestParam = 1; idPestParam <= noPestParameters; idPestParam++)
 		  {
-			mfiFile >> vTTUMMT[0] >> vTTUMMT[1] >> vTTUMMT[2] >> vTTUMMT[3] >> vTTUMMT[4] >> vTTUMMT[5];
-			vectPestParams.push_back(vTTUMMT);
-			if (modelFlag == 0) PestADEiUserChnls->setPestGridParam(idPestParam, vTTUMMT);
-			else if (modelFlag == 1) PestADEniUserChnls->setPestGridParam(idPestParam, vTTUMMT);
-			else if (modelFlag == 2) PestSFDMuserChnls->setPestGridParam(idPestParam, vTTUMMT);
-			else if (modelFlag == 3) Pest2RNEuserChnls->setPestGridParam(idPestParam, vTTUMMT);
+			mfiFile >> vTCEMMT[0] >> vTCEMMT[1] >> vTCEMMT[2] >> vTCEMMT[3] >> vTCEMMT[4] >> vTCEMMT[5];
+			vectPestParams.push_back(vTCEMMT);
+			if (modelFlag == 0) PestADEiUserChnls->setPestGridParam(idPestParam, vTCEMMT);
+			else if (modelFlag == 1) PestADEniUserChnls->setPestGridParam(idPestParam, vTCEMMT);
+			else if (modelFlag == 2) PestSFDMuserChnls->setPestGridParam(idPestParam, vTCEMMT);
+			else if (modelFlag == 3) Pest2RNEuserChnls->setPestGridParam(idPestParam, vTCEMMT);
 		  }
 		  if (modelFlag == 0) PestADEiUserChnls->setPestParams(vectPestParams);
 		  else if (modelFlag == 1) PestADEniUserChnls->setPestParams(vectPestParams);

@@ -44,7 +44,7 @@ public:		// Déclarations utilisateur
 	//-------------------- Méthodes publiques --------------------------------
 	void __fastcall resetPestParamGrid();
 	void __fastcall resetChnlNo_CBox();
-	void __fastcall setPestGridParam(int idPestParam, std::vector<double> vTTUMMT);
+	void __fastcall setPestGridParam(int idPestParam, std::vector<double> vTCEMMT);
 	std::vector< std::vector<double> > __fastcall getPestParams() const;
 	void __fastcall setPestParams(std::vector< std::vector<double> > newPestParams);
 	void __fastcall newPestTplFile();
