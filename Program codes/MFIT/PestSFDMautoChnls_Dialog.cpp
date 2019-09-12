@@ -34,16 +34,20 @@ void __fastcall TPestSFDMautoChnls::resetPestParamGrid()
   ParamGrid->Cells[3][0]="Maximum";
   ParamGrid->Cells[4][0]="Transform";
   ParamGrid->Cells[0][1]="Total Flowrate";
+  ParamGrid->Cells[4][1]="None";
   ParamGrid->Cells[0][2]="Mass";
+  ParamGrid->Cells[4][2]="None";
   ParamGrid->Cells[0][3]="Beta Coeff.";
+  ParamGrid->Cells[4][3]="Log";
   ParamGrid->Cells[0][4]="T0";
+  ParamGrid->Cells[4][4]="Log";
   ParamGrid->Cells[0][5]="Pe";
+  ParamGrid->Cells[4][5]="Log";
   for (int row=1; row<6; row++) // 5 parameters in the transport model: qt,m,b,h,s
   {
 	ParamGrid->Cells[1][row]="1";
 	ParamGrid->Cells[2][row]="1.0E-10";
 	ParamGrid->Cells[3][row]="1.0E+10";
-	ParamGrid->Cells[4][row]="Log";
   }
   ParamGrid->Col=1;
   ParamGrid->Row=1;

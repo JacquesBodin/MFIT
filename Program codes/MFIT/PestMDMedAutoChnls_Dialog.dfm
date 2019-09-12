@@ -18,11 +18,11 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 24
+    Left = 27
     Top = 170
-    Width = 146
+    Width = 141
     Height = 13
-    Caption = 'Maximum number of flowpaths'
+    Caption = 'Maximum number of channels'
   end
   object ParamGrid: TStringGrid
     Left = 16
