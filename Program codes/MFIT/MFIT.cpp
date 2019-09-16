@@ -6,31 +6,32 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
+USEFORM("PestMDMedUserChnls_Dialog.cpp", PestADEniUserChnls);
 USEFORM("PestMDMiAutoChnls_Dialog.cpp", PestADEiAutoChnls);
 USEFORM("PestMDMiUserChnls_Dialog.cpp", PestADEiUserChnls);
-USEFORM("PestSFDMautoChnls_Dialog.cpp", PestSFDMautoChnls);
-USEFORM("PestMDMedUserChnls_Dialog.cpp", PestADEniUserChnls);
+USEFORM("PestMDMedAutoChnls_Dialog.cpp", PestADEniAutoChnls);
+USEFORM("Pest2RNEuserChnls_Dialog.cpp", Pest2RNEuserChnls);
 USEFORM("PestcheckOutput_MessageBox.cpp", PestcheckOutputMessage);
 USEFORM("PestGeneralForm.cpp", PestGeneral);
-USEFORM("PestMDMedAutoChnls_Dialog.cpp", PestADEniAutoChnls);
 USEFORM("UserObsFilter_Dialog.cpp", UserObsFilter_Form);
 USEFORM("WrkDirError_MessageBox.cpp", WDerrorMessage);
 USEFORM("WrkDir_Dialog.cpp", WrkDir_Form);
 USEFORM("TCobs_Dialog.cpp", TCobs_Form);
+USEFORM("PestSFDMautoChnls_Dialog.cpp", PestSFDMautoChnls);
 USEFORM("PestSFDMuserChnls_Dialog.cpp", PestSFDMuserChnls);
-USEFORM("CalUncertHist.cpp", PostCalHist_Form);
+USEFORM("FormatPlot_Dialog.cpp", FormatPlot_Form);
 USEFORM("MainForm.cpp", Main_Form);
 USEFORM("MDMed_Dialog.cpp", MDMed);
-USEFORM("MDMi_Dialog.cpp", MDMi);
-USEFORM("FormatPlot_Dialog.cpp", FormatPlot_Form);
+USEFORM("FilterResult_Dialog.cpp", FilterResult_Form);
+USEFORM("CalUncertHist.cpp", PostCalHist_Form);
 USEFORM("EndInvUserChnls_Dialog.cpp", EndInversionUserChnls_Form);
 USEFORM("Error_MessageBox.cpp", ErrorMessage);
-USEFORM("FilterResult_Dialog.cpp", FilterResult_Form);
 USEFORM("MultiFlow_Generic_Dialog.cpp", MultiFlow_Generic);
 USEFORM("Pest2RNEautoChnls_Dialog.cpp", Pest2RNEautoChnls);
-USEFORM("Pest2RNEuserChnls_Dialog.cpp", Pest2RNEuserChnls);
+USEFORM("MDMi_Dialog.cpp", MDMi);
 USEFORM("MDP_2RNE_Dialog.cpp", MDP_2RNE);
 USEFORM("MDP_SFDM_Dialog.cpp", MDP_SFDM);
+USEFORM("AboutMFIT_MessageBox.cpp", AboutMFIT);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -63,6 +64,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TPest2RNEuserChnls), &Pest2RNEuserChnls);
 		Application->CreateForm(__classid(TPest2RNEautoChnls), &Pest2RNEautoChnls);
 		Application->CreateForm(__classid(TPostCalHist_Form), &PostCalHist_Form);
+		Application->CreateForm(__classid(TAboutMFIT), &AboutMFIT);
 		Application->Run();
 	}
 	catch (Exception &exception)

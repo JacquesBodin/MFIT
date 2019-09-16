@@ -24,6 +24,7 @@
 #include "PestcheckOutput_MessageBox.h"
 #include "EndInvUserChnls_Dialog.h"
 #include "CalUncertHist.h"
+#include "AboutMFIT_MessageBox.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>  // *** temp
@@ -1460,17 +1461,6 @@ void __fastcall TMain_Form::PhiN_OKClick(TObject *Sender)
   }
 }
 //---------------------------------------------------------------------------
-void __fastcall TMain_Form::OpenPhiN_SplitViewPannelClick(TObject *Sender)
-{
-  PhiN_SplitViewPannel->Visible = true;
-  PhiN_SplitViewPannel->Open();
-}
-//---------------------------------------------------------------------------
-void __fastcall TMain_Form::ClosePhiN_SplitViewPannelClick(TObject *Sender)
-{
-  PhiN_SplitViewPannel->Close();
-}
-//---------------------------------------------------------------------------
 void __fastcall TMain_Form::notifyChanges()
 {
   m_UnsavedChanges = true;
@@ -1777,4 +1767,10 @@ void __fastcall TMain_Form::CalUncertMenuClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TMain_Form::AboutMFIT1Click(TObject *Sender)
+{
+  AboutMFIT->Show();
+}
+//---------------------------------------------------------------------------
 

@@ -70,7 +70,6 @@ __published:	// Composants gérés par l'EDI
 	TMenuItem *RunPestChekMenu;
 	TMenuItem *RunPestMenu;
 	TMenuItem *PestAbortMenu;
-	TMenuItem *HelpMenu;
 	TSplitView *PhiN_SplitViewPannel;
 	TChart *PhiN_Chart;
 	TLineSeries *LineSeries1;
@@ -85,11 +84,10 @@ __published:	// Composants gérés par l'EDI
 	TButton *PhiN_OK;
 	TMenuItem *MDP_2RNE_menu;
 	TMenuItem *TwoRNEparamMenu;
-	TMenuItem *InversionResultsMenu;
-	TMenuItem *OpenPhiN_SplitViewPannel;
-	TMenuItem *ClosePhiN_SplitViewPannel;
 	TMenuItem *N4;
 	TMenuItem *CalUncertMenu;
+	TMenuItem *Help1;
+	TMenuItem *AboutMFIT1;
 	void __fastcall FileExitMenuClick(TObject *Sender);
 	void __fastcall WrkDirMenuClick(TObject *Sender);
 	void __fastcall PestCreateDatasetsMenuClick(TObject *Sender);
@@ -113,11 +111,10 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall nUpDownClick(TObject *Sender, TUDBtnType Button);
 	void __fastcall PhiN_OKClick(TObject *Sender);
 	void __fastcall TwoRNEparamMenuClick(TObject *Sender);
-	void __fastcall OpenPhiN_SplitViewPannelClick(TObject *Sender);
-	void __fastcall ClosePhiN_SplitViewPannelClick(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
 	void __fastcall FileNewMenuClick(TObject *Sender);
 	void __fastcall CalUncertMenuClick(TObject *Sender);
+	void __fastcall AboutMFIT1Click(TObject *Sender);
 private:	// Déclarations utilisateur
 	//------------------ Attributs privés ------------------------------------
 	std::vector< std::vector<double> > m_modelBTC; // current simulated BTC

@@ -3955,6 +3955,7 @@ object Main_Form: TMain_Form
       Top = 0
       Width = 23
       Height = 23
+      Hint = 'Abort optimization process...'
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000130B0000130B00001000000000000000000000000000
@@ -3969,6 +3970,8 @@ object Main_Form: TMain_Form
         99333773FF3333777733339993333339933333773FFFFFF77333333999999999
         3333333777333777333333333999993333333333377777333333}
       NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
       Visible = False
       OnClick = PestAbortMenuClick
     end
@@ -4082,7 +4085,7 @@ object Main_Form: TMain_Form
       Title.Text.Strings = (
         'TChart')
       Title.Visible = False
-      BottomAxis.Title.Caption = 'No flow paths'
+      BottomAxis.Title.Caption = 'No channels'
       LeftAxis.Automatic = False
       LeftAxis.AutomaticMaximum = False
       LeftAxis.AutomaticMinimum = False
@@ -4137,9 +4140,9 @@ object Main_Form: TMain_Form
       object Label1: TLabel
         Left = 38
         Top = 18
-        Width = 109
+        Width = 101
         Height = 13
-        Caption = 'Number of Flow Paths:'
+        Caption = 'Number of Channels:'
       end
       object Label2: TLabel
         Left = 38
@@ -4160,7 +4163,7 @@ object Main_Form: TMain_Form
         Caption = 'will be replaced by the new parameters)'
       end
       object n_Edit: TEdit
-        Left = 152
+        Left = 145
         Top = 15
         Width = 41
         Height = 21
@@ -4168,7 +4171,7 @@ object Main_Form: TMain_Form
         Text = '1'
       end
       object nUpDown: TUpDown
-        Left = 193
+        Left = 186
         Top = 15
         Width = 16
         Height = 21
@@ -4337,19 +4340,12 @@ object Main_Form: TMain_Form
         OnClick = CalUncertMenuClick
       end
     end
-    object InversionResultsMenu: TMenuItem
-      Caption = 'Inversion Results'
-      object OpenPhiN_SplitViewPannel: TMenuItem
-        Caption = 'Open Phi(N) Panel'
-        OnClick = OpenPhiN_SplitViewPannelClick
+    object Help1: TMenuItem
+      Caption = '?'
+      object AboutMFIT1: TMenuItem
+        Caption = 'About MFIT...'
+        OnClick = AboutMFIT1Click
       end
-      object ClosePhiN_SplitViewPannel: TMenuItem
-        Caption = 'Close Phi(N) Panel'
-        OnClick = ClosePhiN_SplitViewPannelClick
-      end
-    end
-    object HelpMenu: TMenuItem
-      Caption = 'Help'
     end
   end
 end
