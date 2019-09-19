@@ -4,7 +4,7 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
   BorderStyle = bsDialog
   Caption = 'PEST Parameters - Automatic Multiple Channels'
   ClientHeight = 247
-  ClientWidth = 666
+  ClientWidth = 540
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -27,8 +27,9 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
   object ParamGrid: TStringGrid
     Left = 16
     Top = 16
-    Width = 633
+    Width = 507
     Height = 135
+    ColCount = 4
     DefaultColWidth = 125
     DefaultRowHeight = 21
     RowCount = 6
@@ -36,7 +37,6 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
     TabOrder = 0
     OnClick = ParamGridClick
     ColWidths = (
-      125
       125
       125
       125
@@ -62,35 +62,22 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
       '0'
       '1')
   end
-  object ParTrans_CBox: TComboBox
-    Left = 408
-    Top = 74
-    Width = 102
-    Height = 21
-    TabOrder = 2
-    Text = 'None'
-    Visible = False
-    OnChange = ParTrans_CBoxChange
-    Items.Strings = (
-      'None'
-      'Log')
-  end
   object OK_Button: TButton
-    Left = 225
+    Left = 163
     Top = 207
     Width = 75
     Height = 25
     Caption = 'OK'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 365
+    Left = 298
     Top = 207
     Width = 75
     Height = 25
     Caption = 'Cancel'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = Cancel_ButtonClick
   end
   object Nmax_Edit: TEdit
@@ -98,7 +85,7 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
     Top = 167
     Width = 57
     Height = 21
-    TabOrder = 5
+    TabOrder = 4
     Text = '10'
   end
   object UpDown: TUpDown
@@ -109,7 +96,7 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
     Associate = Nmax_Edit
     Min = 1
     Position = 10
-    TabOrder = 6
+    TabOrder = 5
   end
   object MICP_CheckBox: TCheckBox
     Left = 279
@@ -119,6 +106,6 @@ object PestADEniAutoChnls: TPestADEniAutoChnls
     Caption = 'Enable Multiple Initial Condition Preconditioning'
     Checked = True
     State = cbChecked
-    TabOrder = 7
+    TabOrder = 6
   end
 end

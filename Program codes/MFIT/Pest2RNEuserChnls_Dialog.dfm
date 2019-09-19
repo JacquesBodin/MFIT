@@ -4,7 +4,7 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
   BorderStyle = bsDialog
   Caption = 'PEST Parameters - User Specified Channels'
   ClientHeight = 296
-  ClientWidth = 933
+  ClientWidth = 808
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,9 +20,9 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
   object ParamGrid: TStringGrid
     Left = 16
     Top = 16
-    Width = 902
+    Width = 776
     Height = 222
-    ColCount = 7
+    ColCount = 6
     DefaultColWidth = 125
     DefaultRowHeight = 21
     RowCount = 61
@@ -31,6 +31,13 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
     TabOrder = 0
     OnClick = ParamGridClick
     OnTopLeftChanged = ParamGridTopLeftChanged
+    ColWidths = (
+      125
+      125
+      125
+      125
+      125
+      125)
     RowHeights = (
       21
       21
@@ -104,7 +111,7 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
     OnClick = Import_ButtonClick
   end
   object OK_Button: TButton
-    Left = 363
+    Left = 308
     Top = 256
     Width = 75
     Height = 25
@@ -113,7 +120,7 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 476
+    Left = 421
     Top = 256
     Width = 75
     Height = 25
@@ -122,7 +129,7 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
     OnClick = Cancel_ButtonClick
   end
   object PestParam_CBox: TComboBox
-    Left = 632
+    Left = 548
     Top = 243
     Width = 102
     Height = 21
@@ -141,7 +148,7 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
       'Omega Coeff.')
   end
   object ChnlNo_CBox: TComboBox
-    Left = 632
+    Left = 548
     Top = 270
     Width = 102
     Height = 21
@@ -153,7 +160,7 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
       '1')
   end
   object UseParam_CBox: TComboBox
-    Left = 740
+    Left = 656
     Top = 243
     Width = 102
     Height = 21
@@ -164,19 +171,6 @@ object Pest2RNEuserChnls: TPest2RNEuserChnls
     Items.Strings = (
       '0'
       '1')
-  end
-  object ParTrans_CBox: TComboBox
-    Left = 740
-    Top = 270
-    Width = 102
-    Height = 21
-    TabOrder = 7
-    Text = 'None'
-    Visible = False
-    OnChange = ParTrans_CBoxChange
-    Items.Strings = (
-      'None'
-      'Log')
   end
   object OpenDialog1: TOpenDialog
     Filter = 'Comma-delimited File|*.csv|Text File|*.txt'

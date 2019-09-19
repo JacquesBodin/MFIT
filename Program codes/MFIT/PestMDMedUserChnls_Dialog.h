@@ -19,7 +19,6 @@ __published:	// Composants gérés par l'EDI
 	TStringGrid *ParamGrid;
 	TComboBox *PestParam_CBox;
 	TComboBox *ChnlNo_CBox;
-	TComboBox *ParTrans_CBox;
 	TComboBox *UseParam_CBox;
 	TButton *Import_Button;
 	TOpenDialog *OpenDialog1;
@@ -30,7 +29,6 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall PestParam_CBoxChange(TObject *Sender);
 	void __fastcall ChnlNo_CBoxChange(TObject *Sender);
 	void __fastcall UseParam_CBoxChange(TObject *Sender);
-	void __fastcall ParTrans_CBoxChange(TObject *Sender);
 	void __fastcall OK_ButtonClick(TObject *Sender);
 	void __fastcall Cancel_ButtonClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
@@ -44,7 +42,7 @@ public:		// Déclarations utilisateur
 	//-------------------- Méthodes publiques --------------------------------
 	void __fastcall resetPestParamGrid();
 	void __fastcall resetChnlNo_CBox();
-	void __fastcall setPestGridParam(int idPestParam, std::vector<double> TCEMMT);
+	void __fastcall setPestGridParam(int idPestParam, std::vector<double> TCEMM);
 	std::vector< std::vector<double> > __fastcall getPestParams() const;
 	void __fastcall setPestParams(std::vector< std::vector<double> > newPestParams);
 	void __fastcall newPestTplFile();

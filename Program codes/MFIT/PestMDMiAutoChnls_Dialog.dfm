@@ -4,7 +4,7 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
   BorderStyle = bsDialog
   Caption = 'PEST Parameters - Automatic Multiple Channels'
   ClientHeight = 227
-  ClientWidth = 666
+  ClientWidth = 540
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -27,15 +27,15 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
   object ParamGrid: TStringGrid
     Left = 16
     Top = 16
-    Width = 633
+    Width = 507
     Height = 113
+    ColCount = 4
     DefaultColWidth = 125
     DefaultRowHeight = 21
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goEditing, goTabs]
     TabOrder = 0
     OnClick = ParamGridClick
     ColWidths = (
-      125
       125
       125
       125
@@ -60,21 +60,8 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
       '0'
       '1')
   end
-  object ParTrans_CBox: TComboBox
-    Left = 408
-    Top = 74
-    Width = 102
-    Height = 21
-    TabOrder = 4
-    Text = 'None'
-    Visible = False
-    OnChange = ParTrans_CBoxChange
-    Items.Strings = (
-      'None'
-      'Log')
-  end
   object OK_Button: TButton
-    Left = 225
+    Left = 163
     Top = 187
     Width = 75
     Height = 25
@@ -83,7 +70,7 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 365
+    Left = 298
     Top = 187
     Width = 75
     Height = 25
@@ -96,7 +83,7 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
     Top = 147
     Width = 57
     Height = 21
-    TabOrder = 5
+    TabOrder = 4
     Text = '10'
   end
   object UpDown: TUpDown
@@ -107,7 +94,7 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
     Associate = Nmax_Edit
     Min = 1
     Position = 10
-    TabOrder = 6
+    TabOrder = 5
   end
   object MICP_CheckBox: TCheckBox
     Left = 279
@@ -117,6 +104,6 @@ object PestADEiAutoChnls: TPestADEiAutoChnls
     Caption = 'Enable Multiple Initial Condition Preconditioning'
     Checked = True
     State = cbChecked
-    TabOrder = 7
+    TabOrder = 6
   end
 end

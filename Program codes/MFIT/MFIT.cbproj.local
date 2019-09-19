@@ -346,9 +346,9 @@
     <Transaction>2019/07/01 13:00:23.000.266,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedUserFlwpths_Dialog.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniUserFlwpths_Dialog.cpp</Transaction>
     <Transaction>2019/07/01 13:00:23.000.266,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedUserFlwpths_Dialog.h=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniUserFlwpths_Dialog.h</Transaction>
     <Transaction>2019/07/01 13:00:23.000.266,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedUserFlwpths_Dialog.dfm=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniUserFlwpths_Dialog.dfm</Transaction>
-    <Transaction>2019/07/01 13:01:33.000.724,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedAutoFlwpths_Dialog.h=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniAutoFlwpths_Dialog.h</Transaction>
-    <Transaction>2019/07/01 13:01:33.000.724,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedAutoFlwpths_Dialog.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniAutoFlwpths_Dialog.cpp</Transaction>
     <Transaction>2019/07/01 13:01:33.000.724,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedAutoFlwpths_Dialog.dfm=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniAutoFlwpths_Dialog.dfm</Transaction>
+    <Transaction>2019/07/01 13:01:33.000.724,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedAutoFlwpths_Dialog.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniAutoFlwpths_Dialog.cpp</Transaction>
+    <Transaction>2019/07/01 13:01:33.000.724,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestMDMedAutoFlwpths_Dialog.h=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\PestADEniAutoFlwpths_Dialog.h</Transaction>
     <Transaction>2019/07/01 13:15:08.000.164,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\MultiFlow_Generic_Dialog.dfm=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\MFTM_Generic_Dialog.dfm</Transaction>
     <Transaction>2019/07/01 13:15:08.000.164,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\MultiFlow_Generic_Dialog.h=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\MFTM_Generic_Dialog.h</Transaction>
     <Transaction>2019/07/01 13:15:08.000.164,C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\MultiFlow_Generic_Dialog.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\MFIT_MDM_M2DP\MFIT\MFTM_Generic_Dialog.cpp</Transaction>
@@ -419,10 +419,10 @@
     <Transaction>2019/08/25 15:20:46.000.741,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\EndInversionUserChnls_Dialog.dfm=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\EndInvUserChnls_Dialog.dfm</Transaction>
     <Transaction>2019/08/25 15:20:46.000.741,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\EndInversionUserChnls_Dialog.h=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\EndInvUserChnls_Dialog.h</Transaction>
     <Transaction>2019/08/25 15:20:46.000.741,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\EndInversionUserChnls_Dialog.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\EndInvUserChnls_Dialog.cpp</Transaction>
-    <Transaction>2019/09/16 09:25:46.415,=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.cpp</Transaction>
-    <Transaction>2019/09/16 09:29:42.100,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\AboutMFIT_MessageBox.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.cpp</Transaction>
-    <Transaction>2019/09/16 09:29:42.100,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\AboutMFIT_MessageBox.h=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.h</Transaction>
-    <Transaction>2019/09/16 09:29:42.100,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\AboutMFIT_MessageBox.dfm=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.dfm</Transaction>
+    <Transaction>2019/09/16 09:25:46.000.415,=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.cpp</Transaction>
+    <Transaction>2019/09/16 09:29:42.000.100,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\AboutMFIT_MessageBox.cpp=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.cpp</Transaction>
+    <Transaction>2019/09/16 09:29:42.000.100,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\AboutMFIT_MessageBox.h=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.h</Transaction>
+    <Transaction>2019/09/16 09:29:42.000.100,C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\AboutMFIT_MessageBox.dfm=C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Unit1.dfm</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="MainForm.cpp"/>

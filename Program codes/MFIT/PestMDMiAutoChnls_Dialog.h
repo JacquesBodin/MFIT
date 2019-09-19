@@ -17,7 +17,6 @@ class TPestADEiAutoChnls : public TForm
 __published:	// Composants gérés par l'EDI
 	TStringGrid *ParamGrid;
 	TComboBox *UseParam_CBox;
-	TComboBox *ParTrans_CBox;
 	TButton *OK_Button;
 	TButton *Cancel_Button;
 	TEdit *Nmax_Edit;
@@ -27,7 +26,6 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ParamGridClick(TObject *Sender);
 	void __fastcall UseParam_CBoxChange(TObject *Sender);
-	void __fastcall ParTrans_CBoxChange(TObject *Sender);
 	void __fastcall OK_ButtonClick(TObject *Sender);
 	void __fastcall Cancel_ButtonClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
@@ -44,7 +42,7 @@ public:		// Déclarations utilisateur
     void __fastcall resetPestParamGrid();
 	std::vector< std::vector<double> > __fastcall getPestParams() const;
 	void __fastcall clearPestParams();
-	void __fastcall addParam(std::vector<double> vTEMMT);
+	void __fastcall addParam(std::vector<double> vTEMM);
 	void __fastcall newPestTplFile(int n); // n: number of flow channels
 	void __fastcall newPestControlFile(int n, int idRemovedChnl);
 	//------------------------------------------------------------------------

@@ -32,15 +32,10 @@ void __fastcall TPestADEiAutoChnls::resetPestParamGrid()
   ParamGrid->Cells[1][0]="Estimate (No=0/Yes=1)";
   ParamGrid->Cells[2][0]="Minimum";
   ParamGrid->Cells[3][0]="Maximum";
-  ParamGrid->Cells[4][0]="Transform";
   ParamGrid->Cells[0][1]="Total Flowrate";
-  ParamGrid->Cells[4][1]="None";
   ParamGrid->Cells[0][2]="Mass";
-  ParamGrid->Cells[4][2]="None";
   ParamGrid->Cells[0][3]="T0";
-  ParamGrid->Cells[4][3]="Log";
   ParamGrid->Cells[0][4]="Pe";
-  ParamGrid->Cells[4][4]="Log";
   for (int row=1; row<5; row++) // 4 parameters in the transport model: qt,m,to(h),pe(s)
   {
 	ParamGrid->Cells[1][row]="1";
@@ -75,23 +70,6 @@ void __fastcall TPestADEiAutoChnls::ParamGridClick(TObject *Sender)
   {
 	UseParam_CBox->Visible = false;
   }
-
-  if(ParamGrid->Col == 4) // User click in the column "Transform"
-  {
-	TRect Recto = ParamGrid->CellRect(ParamGrid->Col, ParamGrid->Row);
-	ParTrans_CBox->Top = ParamGrid->Top;
-	ParTrans_CBox->Left = ParamGrid->Left;
-	ParTrans_CBox->Top = ParTrans_CBox->Top + Recto.Top + ParamGrid->GridLineWidth;
-	ParTrans_CBox->Left = ParTrans_CBox->Left + Recto.Left + ParamGrid->GridLineWidth + 1;
-	ParTrans_CBox->Height = (Recto.Bottom - Recto.Top) + 1;
-	ParTrans_CBox->Width = Recto.Right - Recto.Left;
-	ParTrans_CBox->Text = ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row];
-	ParTrans_CBox->Visible = true;
-  }
-  else
-  {
-	ParTrans_CBox->Visible = false;
-  }
 }
 //---------------------------------------------------------------------------
 void __fastcall TPestADEiAutoChnls::UseParam_CBoxChange(TObject *Sender)
@@ -99,19 +77,14 @@ void __fastcall TPestADEiAutoChnls::UseParam_CBoxChange(TObject *Sender)
   ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row] = UseParam_CBox->Text;
 }
 //---------------------------------------------------------------------------
-void __fastcall TPestADEiAutoChnls::ParTrans_CBoxChange(TObject *Sender)
-{
-  ParamGrid->Cells[ParamGrid->Col][ParamGrid->Row] = ParTrans_CBox->Text;
-}
-//---------------------------------------------------------------------------
 void __fastcall TPestADEiAutoChnls::clearPestParams()
 {
   m_PestParams.clear();
 }
 //---------------------------------------------------------------------------
-void __fastcall TPestADEiAutoChnls::addParam(std::vector<double> vTEMMT)
+void __fastcall TPestADEiAutoChnls::addParam(std::vector<double> vTEMM)
 {
-  m_PestParams.push_back(vTEMMT);
+  m_PestParams.push_back(vTEMM);
 }
 //---------------------------------------------------------------------------
 void __fastcall TPestADEiAutoChnls::OK_ButtonClick(TObject *Sender)
@@ -121,17 +94,15 @@ void __fastcall TPestADEiAutoChnls::OK_ButtonClick(TObject *Sender)
   Main_Form->PestCreateDatasetsMenu->Enabled = true;
   clearPestParams();
 
-  vector<double> vTEMMT (5,0); // Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0]
+  vector<double> vTEMM (4,0); // Type, Estimate (No=0/Yes=1), Minimum, Maximum, initialized as [0,0,0,0]
 
   for (int row=1; row<5; row++) // 4 parameters in the transport model: qt,m,t0(h),pe(s)
   {
-	vTEMMT[0] = row; // parameter type numeric code (qt = 1, mass = 2, etc.)
-	vTEMMT[1] = ParamGrid->Cells[1][row].ToInt(); // Estimate (No=0/Yes=1)
-	vTEMMT[2] = ParamGrid->Cells[2][row].ToDouble(); // Minimum
-	vTEMMT[3] = ParamGrid->Cells[3][row].ToDouble(); // Maximum
-	if (ParamGrid->Cells[4][row] == "None") vTEMMT[4] = 0;
-	else if(ParamGrid->Cells[4][row] == "Log") vTEMMT[4] = 1;
-	addParam(vTEMMT);
+	vTEMM[0] = row; // parameter type numeric code (qt = 1, mass = 2, etc.)
+	vTEMM[1] = ParamGrid->Cells[1][row].ToInt(); // Estimate (No=0/Yes=1)
+	vTEMM[2] = ParamGrid->Cells[2][row].ToDouble(); // Minimum
+	vTEMM[3] = ParamGrid->Cells[3][row].ToDouble(); // Maximum
+	addParam(vTEMM);
   }
   Hide();
   Main_Form->notifyChanges();
@@ -152,8 +123,6 @@ void __fastcall TPestADEiAutoChnls::BackToSavedParams()
 	  ParamGrid->Cells[1][row] = pestParamVector[row-1][1];
 	  ParamGrid->Cells[2][row] = FloatToStrF(pestParamVector[row-1][2], ffExponent, 3, 2);
 	  ParamGrid->Cells[3][row] = FloatToStrF(pestParamVector[row-1][3], ffExponent, 3, 2);
-	  if (pestParamVector[row-1][4] == 0) ParamGrid->Cells[4][row] = "None";
-	  else if (pestParamVector[row-1][4] == 1) ParamGrid->Cells[4][row] = "Log";
 	}
   }
   else // pestParamVector is empty
@@ -182,7 +151,7 @@ void __fastcall TPestADEiAutoChnls::newPestTplFile(int n)
   }
   else
   {
-	vector< vector<double> > const pestAutoChnlParams(getPestParams()); // a series (vector) of TEMMT values (Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform)
+	vector< vector<double> > const pestAutoChnlParams(getPestParams()); // a series (vector) of TEMM values (Type, Estimate (No=0/Yes=1), Minimum, Maximum)
 	ofstream tplFile("MFIT.tpl", ios::out | ios::trunc);
 	tplFile << "ptf #" << endl;
 	tplFile << MDMi->getTsimMin() << endl;
@@ -251,10 +220,6 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 	int optFlag_m(pestAutoChnlParams[1][1]);
 	int optFlag_h(pestAutoChnlParams[2][1]);
 	int optFlag_s(pestAutoChnlParams[3][1]);
-	bool logTr_qt(pestAutoChnlParams[0][4]); // indicates if the optimization must be based on the log of the parameter
-	bool logTr_m(pestAutoChnlParams[1][4]);
-	bool logTr_h(pestAutoChnlParams[2][4]);
-	bool logTr_s(pestAutoChnlParams[3][4]);
 	ofstream pstFile("MFIT.pst", ios::out | ios::trunc);
 	pstFile << "pcf" << endl;
 	//============ Control Data Section ============
@@ -361,7 +326,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 	if (optFlag_qt == 1) // optimization is required
 	{
 	  pstFile << "qt"; // PARNME
-	  if (logTr_qt) pstFile << "  Log"; else pstFile << "  None"; // PARTRANS
+	  pstFile << "  Log"; // PARTRANS
 	  pstFile << "  factor"; // PARCHGLIM
 	  double qt_init = MDMi->getQT(); // initial user-specified value
 	  // Is an optimized value available from a previous iteration? If yes this optimized value is used rather than the user-specified value.
@@ -399,7 +364,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 	  if (optFlag_m == 1) // must be optimized
 	  {
 		pstFile << "m" << idChnl; // PARNME
-		if (logTr_m) pstFile << "  Log"; else pstFile << "  None"; // PARTRANS
+		pstFile << "  Log"; // PARTRANS
 		pstFile << "  factor"; // PARCHGLIM
 		double m_init;
 		if (mVect.size()>0) // Is an optimized value available from a previous iteration? If yes this optimized value is used rather than the default value (see below).
@@ -417,7 +382,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 	  if (optFlag_h == 1)
 	  {
 		pstFile << "h" << idChnl;
-		if (logTr_h) pstFile << "  Log"; else pstFile << "  None";
+		pstFile << "  Log";
 		pstFile << "  factor";
 		double h_init;
 		if (hVect.size()>0)	h_init = hVect[idChnl-1];
@@ -442,7 +407,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 	  if (optFlag_s == 1)
 	  {
 		pstFile << "s" << idChnl;
-		if (logTr_s) pstFile << "  Log"; else pstFile << "  None";
+		pstFile << "  Log";
 		pstFile << "  factor";
 		double s_init;
 		if (sVect.size()>0) s_init = sVect[idChnl-1];
@@ -541,8 +506,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		  {
 			pstFile << "pi" << noPi << "  1.0 * ";
 			noPi++;
-			if (logTr_m) pstFile << "log(m" << i << ") - 1.0 * log(m" << i+j << ")";
-			else pstFile << "m" << i << " - 1.0 * m" << i+j;
+			pstFile << "log(m" << i << ") - 1.0 * log(m" << i+j << ")";
 			pstFile << " = 0.0 1.0 regulM" << endl;
 		  }
 		}
@@ -555,8 +519,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		  {
 			pstFile << "pi" << noPi << "  1.0 * ";
 			noPi++;
-			if (logTr_h) pstFile << "log(h" << i << ") - 1.0 * log(h" << i+j << ")";
-			else pstFile << "h" << i << " - 1.0 * h" << i+j;
+			pstFile << "log(h" << i << ") - 1.0 * log(h" << i+j << ")";
 			pstFile << " = 0.0 1.0 regulH" << endl;
 		  }
 		}
@@ -569,8 +532,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		  {
 			pstFile << "pi" << noPi << "  1.0 * ";
 			noPi++;
-			if (logTr_s) pstFile << "log(s" << i << ") - 1.0 * log(s" << i+j << ")";
-			else pstFile << "s" << i << " - 1.0 * s" << i+j;
+			pstFile << "log(s" << i << ") - 1.0 * log(s" << i+j << ")";
 			pstFile << " = 0.0 1.0 regulS" << endl;
 		  }
 		}
@@ -584,8 +546,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		double qt_init = MDMi->getQT(); // initial user-specified value
 		pstFile << "pi" << noPi << "  1.0 * ";
 		noPi++;
-		if (logTr_qt) pstFile << "log(qt) = " << log10(qt_init);
-		else pstFile << "qt = " << qt_init;
+		pstFile << "log(qt) = " << log10(qt_init);
 		pstFile << " 1.0 regulQT" << endl;
 	  }
 	  if (optFlag_m == 1)
@@ -595,8 +556,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		{
 		  pstFile << "pi" << noPi << "  1.0 * ";
 		  noPi++;
-		  if (logTr_m) pstFile << "log(m" << i << ") = " << log10(m_init);
-		  else pstFile << "m" << i << " = " << m_init;
+		  pstFile << "log(m" << i << ") = " << log10(m_init);
 		  pstFile << " 1.0 regulM" << endl;
 		}
 	  }
@@ -607,8 +567,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		{
 		  pstFile << "pi" << noPi << "  1.0 * ";
 		  noPi++;
-		  if (logTr_h) pstFile << "log(h" << i << ") = " << log10(h_init);
-		  else pstFile << "h" << i << " = " << h_init;
+		  pstFile << "log(h" << i << ") = " << log10(h_init);
 		  pstFile << " 1.0 regulH" << endl;
 		}
 	  }
@@ -619,8 +578,7 @@ void __fastcall TPestADEiAutoChnls::newPestControlFile(int n, int idRemovedChnl)
 		{
 		  pstFile << "pi" << noPi << "  1.0 * ";
 		  noPi++;
-		  if (logTr_s) pstFile << "log(s" << i << ") = " << log10(s_init);
-		  else pstFile << "s" << i << " = " << s_init;
+		  pstFile << "log(s" << i << ") = " << log10(s_init);
 		  pstFile << " 1.0 regulS" << endl;
 		}
 	  }

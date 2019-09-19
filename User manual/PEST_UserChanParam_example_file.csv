@@ -1,7 +1,7 @@
-Total Flowrate,All,0,1.0E-10,60,None
-Mass,1,1,1.0E-10,5,None
-Mass,2,1,1.0E-10,5,Log
-T0,1,1,1,40,Log
-T0,2,1,1,40,Log
-Pe,1,1,1,1.0E+5,Log
-Pe,2,1,1,1.0E+5,Log
+Total Flowrate,All,0,1.0E-10,60
+Mass,1,1,1.0E-10,5
+Mass,2,1,1.0E-10,5
+T0,1,1,1,40
+T0,2,1,1,40
+Pe,1,1,1,1.0E+5
+Pe,2,1,1,1.0E+5

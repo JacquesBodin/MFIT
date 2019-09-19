@@ -4,7 +4,7 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
   BorderStyle = bsDialog
   Caption = 'PEST Parameters - User Specified Channels'
   ClientHeight = 296
-  ClientWidth = 933
+  ClientWidth = 808
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
   PixelsPerInch = 96
   TextHeight = 13
   object OK_Button: TButton
-    Left = 363
+    Left = 308
     Top = 256
     Width = 75
     Height = 25
@@ -27,7 +27,7 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 476
+    Left = 421
     Top = 256
     Width = 75
     Height = 25
@@ -38,9 +38,9 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
   object ParamGrid: TStringGrid
     Left = 16
     Top = 16
-    Width = 902
+    Width = 776
     Height = 222
-    ColCount = 7
+    ColCount = 6
     DefaultColWidth = 125
     DefaultRowHeight = 21
     RowCount = 61
@@ -49,6 +49,13 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
     TabOrder = 2
     OnClick = ParamGridClick
     OnTopLeftChanged = ParamGridTopLeftChanged
+    ColWidths = (
+      125
+      125
+      125
+      125
+      125
+      125)
     RowHeights = (
       21
       21
@@ -113,7 +120,7 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
       21)
   end
   object PestParam_CBox: TComboBox
-    Left = 632
+    Left = 548
     Top = 243
     Width = 102
     Height = 21
@@ -130,7 +137,7 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
       'Pe')
   end
   object ChnlNo_CBox: TComboBox
-    Left = 632
+    Left = 548
     Top = 270
     Width = 102
     Height = 21
@@ -141,25 +148,12 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
     Items.Strings = (
       '1')
   end
-  object ParTrans_CBox: TComboBox
-    Left = 740
-    Top = 270
-    Width = 102
-    Height = 21
-    TabOrder = 5
-    Text = 'None'
-    Visible = False
-    OnChange = ParTrans_CBoxChange
-    Items.Strings = (
-      'None'
-      'Log')
-  end
   object UseParam_CBox: TComboBox
-    Left = 740
+    Left = 656
     Top = 243
     Width = 102
     Height = 21
-    TabOrder = 6
+    TabOrder = 5
     Text = '0'
     Visible = False
     OnChange = UseParam_CBoxChange
@@ -173,7 +167,7 @@ object PestSFDMuserChnls: TPestSFDMuserChnls
     Width = 75
     Height = 25
     Caption = 'Import...'
-    TabOrder = 7
+    TabOrder = 6
     OnClick = Import_ButtonClick
   end
   object OpenDialog1: TOpenDialog

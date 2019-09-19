@@ -4,7 +4,7 @@ object Pest2RNEautoChnls: TPest2RNEautoChnls
   BorderStyle = bsDialog
   Caption = 'PEST Parameters - Automatic Multiple Channels'
   ClientHeight = 296
-  ClientWidth = 666
+  ClientWidth = 540
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -27,8 +27,9 @@ object Pest2RNEautoChnls: TPest2RNEautoChnls
   object ParamGrid: TStringGrid
     Left = 16
     Top = 16
-    Width = 633
+    Width = 507
     Height = 180
+    ColCount = 4
     DefaultColWidth = 125
     DefaultRowHeight = 21
     RowCount = 8
@@ -36,7 +37,6 @@ object Pest2RNEautoChnls: TPest2RNEautoChnls
     TabOrder = 0
     OnClick = ParamGridClick
     ColWidths = (
-      125
       125
       125
       125
@@ -64,25 +64,12 @@ object Pest2RNEautoChnls: TPest2RNEautoChnls
       '0'
       '1')
   end
-  object ParTrans_CBox: TComboBox
-    Left = 408
-    Top = 74
-    Width = 102
-    Height = 21
-    TabOrder = 2
-    Text = 'None'
-    Visible = False
-    OnChange = ParTrans_CBoxChange
-    Items.Strings = (
-      'None'
-      'Log')
-  end
   object Nmax_Edit: TEdit
     Left = 176
     Top = 214
     Width = 57
     Height = 21
-    TabOrder = 3
+    TabOrder = 2
     Text = '10'
   end
   object UpDown: TUpDown
@@ -93,24 +80,24 @@ object Pest2RNEautoChnls: TPest2RNEautoChnls
     Associate = Nmax_Edit
     Min = 1
     Position = 10
-    TabOrder = 4
+    TabOrder = 3
   end
   object OK_Button: TButton
-    Left = 225
+    Left = 163
     Top = 254
     Width = 75
     Height = 25
     Caption = 'OK'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = OK_ButtonClick
   end
   object Cancel_Button: TButton
-    Left = 365
+    Left = 298
     Top = 254
     Width = 75
     Height = 25
     Caption = 'Cancel'
-    TabOrder = 6
+    TabOrder = 5
     OnClick = Cancel_ButtonClick
   end
   object MICP_CheckBox: TCheckBox
@@ -121,6 +108,6 @@ object Pest2RNEautoChnls: TPest2RNEautoChnls
     Caption = 'Enable Multiple Initial Condition Preconditioning'
     Checked = True
     State = cbChecked
-    TabOrder = 7
+    TabOrder = 6
   end
 end

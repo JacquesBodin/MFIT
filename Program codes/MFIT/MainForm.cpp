@@ -766,7 +766,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 	  if (PestUserChnls->Checked) // option "UserChannels" (fixed number of channels, defined by the user)
 	  {
 		mfiFile << "0" << endl; // UserChannels option flag
-		vector< vector<double> > vectPestUserChnlParams; // a series of [Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform]
+		vector< vector<double> > vectPestUserChnlParams; // a series of [Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum]
 		if (MDMi_menu->Checked) vectPestUserChnlParams = PestADEiUserChnls->getPestParams();
 		else if (MDMed_menu->Checked) vectPestUserChnlParams = PestADEniUserChnls->getPestParams();
 		else if (MDP_SFDM_menu->Checked) vectPestUserChnlParams = PestSFDMuserChnls->getPestParams();
@@ -777,7 +777,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 		{
 		  for (int i = 0; i < noPestParams; i++) // for each Pest parameter
 		  {
-			for (int j = 0; j < 6; j++) // TTUMMT: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform
+			for (int j = 0; j < 5; j++) // TTUMM: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum
 			{
 			  mfiFile << vectPestUserChnlParams[i][j] << " ";
 			}
@@ -793,7 +793,7 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 			||((MDP_SFDM_menu->Checked)&&(PestSFDMautoChnls->MICP_CheckBox->Checked))
 			||((MDP_2RNE_menu->Checked)&&(Pest2RNEautoChnls->MICP_CheckBox->Checked)))
 		{ mfiFile << "1" << endl; } else { mfiFile << "0" << endl; } // MICP option (Multiple Initial Condition Preconditionning)
-		vector< vector<double> > vectPestAutoChnlParams; // a series of [Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform]
+		vector< vector<double> > vectPestAutoChnlParams; // a series of [Type, Estimate (No=0/Yes=1), Minimum, Maximum]
 		if (MDMi_menu->Checked) vectPestAutoChnlParams = PestADEiAutoChnls->getPestParams();
 		else if (MDMed_menu->Checked) vectPestAutoChnlParams = PestADEniAutoChnls->getPestParams();
 		else if (MDP_SFDM_menu->Checked) vectPestAutoChnlParams = PestSFDMautoChnls->getPestParams();
@@ -812,7 +812,6 @@ void __fastcall TMain_Form::FileSaveAsMenuClick(TObject *Sender)
 			mfiFile << vectPestAutoChnlParams[i][1] << " "; // Estimate (No=0/Yes=1)
 			mfiFile << vectPestAutoChnlParams[i][2] << " "; // Minimum
 			mfiFile << vectPestAutoChnlParams[i][3] << " "; // Maximum
-			mfiFile << vectPestAutoChnlParams[i][4] << " "; // Transform
 			mfiFile << endl;
 		  }
 		}
@@ -1175,15 +1174,15 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 		if (noPestParameters > 0)
 		{
 		  vector< vector<double> > vectPestParams;
-		  vector<double> vTCEMMT (6,0); // A Pest parameter for "UserChannel" optimization: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0,0]
+		  vector<double> vTCEMM (5,0); // A Pest parameter for "UserChannel" optimization: Type, Channel No., Use (No=0/Yes=1), Minimum, Maximum, initialized as [0,0,0,0,0]
 		  for (int idPestParam = 1; idPestParam <= noPestParameters; idPestParam++)
 		  {
-			mfiFile >> vTCEMMT[0] >> vTCEMMT[1] >> vTCEMMT[2] >> vTCEMMT[3] >> vTCEMMT[4] >> vTCEMMT[5];
-			vectPestParams.push_back(vTCEMMT);
-			if (modelFlag == 0) PestADEiUserChnls->setPestGridParam(idPestParam, vTCEMMT);
-			else if (modelFlag == 1) PestADEniUserChnls->setPestGridParam(idPestParam, vTCEMMT);
-			else if (modelFlag == 2) PestSFDMuserChnls->setPestGridParam(idPestParam, vTCEMMT);
-			else if (modelFlag == 3) Pest2RNEuserChnls->setPestGridParam(idPestParam, vTCEMMT);
+			mfiFile >> vTCEMM[0] >> vTCEMM[1] >> vTCEMM[2] >> vTCEMM[3] >> vTCEMM[4];
+			vectPestParams.push_back(vTCEMM);
+			if (modelFlag == 0) PestADEiUserChnls->setPestGridParam(idPestParam, vTCEMM);
+			else if (modelFlag == 1) PestADEniUserChnls->setPestGridParam(idPestParam, vTCEMM);
+			else if (modelFlag == 2) PestSFDMuserChnls->setPestGridParam(idPestParam, vTCEMM);
+			else if (modelFlag == 3) Pest2RNEuserChnls->setPestGridParam(idPestParam, vTCEMM);
 		  }
 		  if (modelFlag == 0) PestADEiUserChnls->setPestParams(vectPestParams);
 		  else if (modelFlag == 1) PestADEniUserChnls->setPestParams(vectPestParams);
@@ -1196,7 +1195,7 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 	  {
 		int flagMICP, noModelParams, nMax;
 		mfiFile >> flagMICP;
-		vector<double> vTEMMT (5,0); // A pest parameter for "AutoChannels" optimization: Type, Estimate (No=0/Yes=1), Minimum, Maximum, Transform, initialized as [0,0,0,0,0]
+		vector<double> vTEMM (4,0); // A pest parameter for "AutoChannels" optimization: Type, Estimate (No=0/Yes=1), Minimum, Maximum, initialized as [0,0,0,0]
 		if (modelFlag == 0) // ADEinst
 		{
 		  mfiFile >> noModelParams;
@@ -1206,13 +1205,11 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 			PestADEiAutoChnls->UpDown->Position = nMax;
 			for (int row=1; row <1+noModelParams; row++)
 			{
-			  mfiFile >> vTEMMT[0] >> vTEMMT[1] >> vTEMMT[2] >> vTEMMT[3] >> vTEMMT[4];
-			  PestADEiAutoChnls->addParam(vTEMMT);
-			  PestADEiAutoChnls->ParamGrid->Cells[1][row] = vTEMMT[1];
-			  PestADEiAutoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMMT[2], ffExponent, 3, 2);
-			  PestADEiAutoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMMT[3], ffExponent, 3, 2);
-			  if (vTEMMT[4] == 0) PestADEiAutoChnls->ParamGrid->Cells[4][row] = "None";
-			  else if (vTEMMT[4] == 1) PestADEiAutoChnls->ParamGrid->Cells[4][row] = "Log";
+			  mfiFile >> vTEMM[0] >> vTEMM[1] >> vTEMM[2] >> vTEMM[3];
+			  PestADEiAutoChnls->addParam(vTEMM);
+			  PestADEiAutoChnls->ParamGrid->Cells[1][row] = vTEMM[1];
+			  PestADEiAutoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMM[2], ffExponent, 3, 2);
+			  PestADEiAutoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMM[3], ffExponent, 3, 2);
 			}
 			PestAutoChnls->Checked = true;
 			if (flagMICP == 1) PestADEiAutoChnls->MICP_CheckBox->Checked = true;
@@ -1228,13 +1225,11 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 			PestADEniAutoChnls->UpDown->Position = nMax;
 			for (int row=1; row <1+noModelParams; row++)
 			{
-			  mfiFile >> vTEMMT[0] >> vTEMMT[1] >> vTEMMT[2] >> vTEMMT[3] >> vTEMMT[4];
-			  PestADEniAutoChnls->addParam(vTEMMT);
-			  PestADEniAutoChnls->ParamGrid->Cells[1][row] = vTEMMT[1];
-			  PestADEniAutoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMMT[2], ffExponent, 3, 2);
-			  PestADEniAutoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMMT[3], ffExponent, 3, 2);
-			  if (vTEMMT[4] == 0) PestADEniAutoChnls->ParamGrid->Cells[4][row] = "None";
-			  else if (vTEMMT[4] == 1) PestADEniAutoChnls->ParamGrid->Cells[4][row] = "Log";
+			  mfiFile >> vTEMM[0] >> vTEMM[1] >> vTEMM[2] >> vTEMM[3];
+			  PestADEniAutoChnls->addParam(vTEMM);
+			  PestADEniAutoChnls->ParamGrid->Cells[1][row] = vTEMM[1];
+			  PestADEniAutoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMM[2], ffExponent, 3, 2);
+			  PestADEniAutoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMM[3], ffExponent, 3, 2);
 			}
 			PestAutoChnls->Checked = true;
 			if (flagMICP == 1) PestADEniAutoChnls->MICP_CheckBox->Checked = true;
@@ -1250,13 +1245,11 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 			PestSFDMautoChnls->UpDown->Position = nMax;
 			for (int row=1; row <1+noModelParams; row++)
 			{
-			  mfiFile >> vTEMMT[0] >> vTEMMT[1] >> vTEMMT[2] >> vTEMMT[3] >> vTEMMT[4];
-			  PestSFDMautoChnls->addParam(vTEMMT);
-			  PestSFDMautoChnls->ParamGrid->Cells[1][row] = vTEMMT[1];
-			  PestSFDMautoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMMT[2], ffExponent, 3, 2);
-			  PestSFDMautoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMMT[3], ffExponent, 3, 2);
-			  if (vTEMMT[4] == 0) PestSFDMautoChnls->ParamGrid->Cells[4][row] = "None";
-			  else if (vTEMMT[4] == 1) PestSFDMautoChnls->ParamGrid->Cells[4][row] = "Log";
+			  mfiFile >> vTEMM[0] >> vTEMM[1] >> vTEMM[2] >> vTEMM[3];
+			  PestSFDMautoChnls->addParam(vTEMM);
+			  PestSFDMautoChnls->ParamGrid->Cells[1][row] = vTEMM[1];
+			  PestSFDMautoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMM[2], ffExponent, 3, 2);
+			  PestSFDMautoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMM[3], ffExponent, 3, 2);
 			}
 			PestAutoChnls->Checked = true;
 			if (flagMICP == 1) PestSFDMautoChnls->MICP_CheckBox->Checked = true;
@@ -1272,13 +1265,11 @@ void __fastcall TMain_Form::FileOpenMenuClick(TObject *Sender)
 			Pest2RNEautoChnls->UpDown->Position = nMax;
 			for (int row=1; row <1+noModelParams; row++)
 			{
-			  mfiFile >> vTEMMT[0] >> vTEMMT[1] >> vTEMMT[2] >> vTEMMT[3] >> vTEMMT[4];
-			  Pest2RNEautoChnls->addParam(vTEMMT);
-			  Pest2RNEautoChnls->ParamGrid->Cells[1][row] = vTEMMT[1];
-			  Pest2RNEautoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMMT[2], ffExponent, 3, 2);
-			  Pest2RNEautoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMMT[3], ffExponent, 3, 2);
-			  if (vTEMMT[4] == 0) Pest2RNEautoChnls->ParamGrid->Cells[4][row] = "None";
-			  else if (vTEMMT[4] == 1) Pest2RNEautoChnls->ParamGrid->Cells[4][row] = "Log";
+			  mfiFile >> vTEMM[0] >> vTEMM[1] >> vTEMM[2] >> vTEMM[3];
+			  Pest2RNEautoChnls->addParam(vTEMM);
+			  Pest2RNEautoChnls->ParamGrid->Cells[1][row] = vTEMM[1];
+			  Pest2RNEautoChnls->ParamGrid->Cells[2][row] = FloatToStrF(vTEMM[2], ffExponent, 3, 2);
+			  Pest2RNEautoChnls->ParamGrid->Cells[3][row] = FloatToStrF(vTEMM[3], ffExponent, 3, 2);
 			}
 			PestAutoChnls->Checked = true;
 			if (flagMICP == 1) Pest2RNEautoChnls->MICP_CheckBox->Checked = true;
@@ -1564,7 +1555,7 @@ void __fastcall TMain_Form::CalUncertMenuClick(TObject *Sender)
 	  {
 		stdDev = (PARUBND-PARLBND)/double(4); //*** see Pest manual II, p81
 	  }
-	  else // PARTRANS == "log"
+	  else // PARTRANS == "Log"
 	  {
 		stdDev = (log10(PARUBND)-log10(PARLBND))/double(4); //*** see Pest manual II, p81
 	  }

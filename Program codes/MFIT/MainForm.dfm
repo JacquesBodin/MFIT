@@ -4225,6 +4225,16 @@ object Main_Form: TMain_Form
         Caption = 'Open...'
         OnClick = FileOpenMenuClick
       end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object WrkDirMenu: TMenuItem
+        Caption = 'Working Directory...'
+        OnClick = WrkDirMenuClick
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
       object FileSaveAsMenu: TMenuItem
         Caption = 'Save As...'
         OnClick = FileSaveAsMenuClick
@@ -4242,13 +4252,6 @@ object Main_Form: TMain_Form
     object TM_Menu: TMenuItem
       Caption = 'Transport models'
       Enabled = False
-      object WrkDirMenu: TMenuItem
-        Caption = 'Working Directory...'
-        OnClick = WrkDirMenuClick
-      end
-      object N1: TMenuItem
-        Caption = '-'
-      end
       object MDMi_menu: TMenuItem
         Caption = 'MDMi'
         object ADEiParamMenu: TMenuItem

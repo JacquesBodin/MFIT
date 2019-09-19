@@ -51,7 +51,6 @@ __published:	// Composants gérés par l'EDI
 	TMenuItem *ObservationsMenu;
 	TMenuItem *TM_Menu;
 	TMenuItem *WrkDirMenu;
-	TMenuItem *N1;
 	TMenuItem *MDMi_menu;
 	TMenuItem *ADEiParamMenu;
 	TMenuItem *MDMed_menu;
@@ -88,6 +87,8 @@ __published:	// Composants gérés par l'EDI
 	TMenuItem *CalUncertMenu;
 	TMenuItem *Help1;
 	TMenuItem *AboutMFIT1;
+	TMenuItem *N1;
+	TMenuItem *N5;
 	void __fastcall FileExitMenuClick(TObject *Sender);
 	void __fastcall WrkDirMenuClick(TObject *Sender);
 	void __fastcall PestCreateDatasetsMenuClick(TObject *Sender);
