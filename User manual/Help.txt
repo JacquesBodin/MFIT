@@ -1,6 +1,0 @@
-Uncertainty analysis
-1. Run a BTC inversion (either regularized or not, either user-defined path or automatic multiple paths)
-2. Import the inverted parameter set for which the uncertainty is to be assessed, and re-run the transport model
-3. If previously used, remove the regularization option in the Pest general settings
-3. Set up and run a new "user-defined path" inversion
-4. Run the post-calibration uncertainty analysis

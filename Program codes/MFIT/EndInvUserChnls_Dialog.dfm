@@ -29,10 +29,10 @@ object EndInversionUserChnls_Form: TEndInversionUserChnls_Form
   object Label2: TLabel
     Left = 24
     Top = 56
-    Width = 355
+    Width = 360
     Height = 13
     Caption = 
-      '(caution: all the initial parameters will be replaced by the new' +
+      '(Warning: all the initial parameters will be replaced by the new' +
       ' parameters)'
   end
   object Cancel_Button: TButton

@@ -1765,3 +1765,9 @@ void __fastcall TMain_Form::AboutMFIT1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TMain_Form::Userguide1Click(TObject *Sender)
+{
+  ShellExecute(0, 0, L"MFIT user guide.pdf", 0, 0 , SW_SHOW );
+}
+//---------------------------------------------------------------------------
+

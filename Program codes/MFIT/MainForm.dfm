@@ -4345,6 +4345,10 @@ object Main_Form: TMain_Form
     end
     object Help1: TMenuItem
       Caption = '?'
+      object Userguide1: TMenuItem
+        Caption = 'MFIT User Guide'
+        OnClick = Userguide1Click
+      end
       object AboutMFIT1: TMenuItem
         Caption = 'About MFIT...'
         OnClick = AboutMFIT1Click

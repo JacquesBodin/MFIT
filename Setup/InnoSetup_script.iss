@@ -28,6 +28,7 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
+Source: "C:\Users\JBodin\Documents\Recherche\MFIT\User guide\MFIT user guide.pdf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MFIT\Win32\Release\MFIT.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MDMi\Release\MDMi.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\JBodin\Documents\Recherche\MFIT\Program codes\MDMed\Release\MDMed.exe"; DestDir: "{app}"; Flags: ignoreversion

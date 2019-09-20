@@ -89,6 +89,7 @@ __published:	// Composants gérés par l'EDI
 	TMenuItem *AboutMFIT1;
 	TMenuItem *N1;
 	TMenuItem *N5;
+	TMenuItem *Userguide1;
 	void __fastcall FileExitMenuClick(TObject *Sender);
 	void __fastcall WrkDirMenuClick(TObject *Sender);
 	void __fastcall PestCreateDatasetsMenuClick(TObject *Sender);
@@ -116,6 +117,7 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall FileNewMenuClick(TObject *Sender);
 	void __fastcall CalUncertMenuClick(TObject *Sender);
 	void __fastcall AboutMFIT1Click(TObject *Sender);
+	void __fastcall Userguide1Click(TObject *Sender);
 private:	// Déclarations utilisateur
 	//------------------ Attributs privés ------------------------------------
 	std::vector< std::vector<double> > m_modelBTC; // current simulated BTC
